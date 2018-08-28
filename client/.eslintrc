@@ -18,7 +18,8 @@
     "object-curly-spacing":[0],
     "react/jsx-tag-spacing":[0],
     "no-console":[0],
-    "react/destructuring-assignment":[0]
+    "react/destructuring-assignment":[0],
+    "react/require-default-props ":[0]
   }
 }
 
