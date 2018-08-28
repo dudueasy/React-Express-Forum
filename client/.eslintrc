@@ -1,0 +1,24 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node":true
+  },
+  "parserOptions": {
+    "ecmaVersion":6,
+    "sourceType": "module"
+  }
+  ,
+  "extends": "airbnb",
+  "rules": {
+    "semi": [0],
+    "react/prefer-stateless-function":[0],
+    "react/jsx-filename-extension":[0],
+    "object-curly-spacing":[0],
+    "react/jsx-tag-spacing":[0],
+    "no-console":[0],
+    "react/destructuring-assignment":[0]
+  }
+}
+
