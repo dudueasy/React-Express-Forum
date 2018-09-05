@@ -1,9 +1,10 @@
 const axios = require('axios')
+const queryString = require('query-string')
 
 const baseUrl = 'https://cnodejs.org/api/v1'
 
 // 这个中间件用来代理 cnodejs 接口
-module.exports =  (req, res, next) => {
+module.exports = (req, res, next) => {
   const path = req.path
   // 初始化用户数据
   const user = req.session.user || {}
@@ -13,11 +14,11 @@ module.exports =  (req, res, next) => {
   const needAccessToken = req.query.needAccessToken
 
   // 如果请求的接口需要登录, 而用户没有accesstoken
-  if(needAccessToken && !user.accessToken){
+  if (needAccessToken && !user.accessToken) {
     res.status(401)
-    res.json( {
-      success: false,
-      msg: 'need login'
+    res.json({
+        success: false,
+        msg: 'need login'
       }
     )
   }
@@ -31,28 +32,24 @@ module.exports =  (req, res, next) => {
   axios(`${baseUrl}/${path}`, {
     method: req.method,
     params: query,
-    data: Object.assign({}, req.body, {
-      accesstoken: user.accessToken
-    }),
-    headers:{
-      'Content-type':'application/x-www-form-urlencoded'
-    }
+    data:  queryString.stringify(Object.assign({}, req.body, { accesstoken: user.accessToken || {} })),
+    headers: { 'content-type': 'application/x-www-form-urlencoded' },
   }).then(
-    result =>{
-      if(result.status === 200){
+    result => {
+      if (result.status === 200) {
         res.send(result.data)
-      } else{
+      } else {
         res.status(result.status).send(result.data)
       }
     }
-  ).catch(err=>{
-    if(err.response){
+  ).catch(err => {
+    if (err.response) {
       res.status(500).send(err.response.data)
 
-    }else{
+    } else {
       res.status(500).send({
-        success:false,
-        msg:'unknown error'
+        success: false,
+        msg: 'unknown error'
       })
     }
   })
