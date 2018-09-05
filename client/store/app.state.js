@@ -28,13 +28,12 @@ autorun(() => {
   console.log(appState.msg)
 })
 
-window.appState = appState
 // update counter
-setInterval(
-  () => {
-    appState.add()
-  },
-  1000,
-)
+// setInterval(
+//   () => {
+//     appState.add()
+//   },
+//   1000,
+// )
 
 export default appState

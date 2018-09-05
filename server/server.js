@@ -3,6 +3,9 @@ const fs = require('fs')
 const path = require('path')
 const express = require('express')
 const serveFavicon = require('serve-favicon')
+const bodyParser = require('body-parser')
+const queryString = require('query-string')
+const session = require('express-session')
 
 
 // 初始化
@@ -10,7 +13,22 @@ let isDev = process.env.NODE_ENV === "development"
 let app = express()
 let port = 8001
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
+
+app.use(session({
+  // name refer to sid-cookie name
+  name: 'tid',
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {maxAge: 1000*60*60*24 }
+}))
+
 app.use(serveFavicon(path.join(__dirname, '../favicon.ico')))
+
+app.use('/api/user', require('../util/handle-login'))
+app.use('/api', require('../util/proxy'))
 
 // 定义非开发环境下的代码逻辑
 if (!isDev) {

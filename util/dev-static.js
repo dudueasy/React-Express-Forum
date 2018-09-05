@@ -1,3 +1,4 @@
+// 这个脚本在开发环境下处理对 '/' 和 '/public' 的请求. 用于实现服务端渲染时的热模块替换.
 const axios = require('axios')
 const webpack = require('webpack')
 const MemoryFs = require('memory-fs')
@@ -62,9 +63,8 @@ serverCompiler.watch({},(err, stats)=>{
 // 接收的参数是一个 express 应用
 module.exports = function (app) {
 
-  // 使用 proxy 中间件来代理对静态资源的请求, 让webpack devServer 来响应静态资源
-  app.use('/public', proxy({target: 'http://localhost:8888'})
-  )
+  // 使用 proxy 中间件来代理对静态资源的请求, 让运行在 8888 端口的 webpack devServer 来响应静态资源
+  app.use('/public', proxy({target: 'http://localhost:8888'}) )
 
   app.get('/',(req,res)=>{
     getTemplate().then(template =>{
