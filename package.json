@@ -8,6 +8,7 @@
     "build:server": "webpack --config build/webpack.config.server.js",
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js",
     "dev:server": "nodemon server/server.js",
+    "start":"cross-env NODE_ENV=production node server/server.js",
     "clear_dist": "rimraf dist",
     "build": "npm run clear_dist && npm run build:client && npm run build:server",
     "lint": "eslint --ext .js --ext .jsx client/",
