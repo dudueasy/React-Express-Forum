@@ -28,10 +28,9 @@ router.post('/login', (req, res)=>{
     .catch(err=>{
         // 如果cnode 返回了错误的响应 err.response (非服务器内部错误)
         if(err.response){
-          console.log('err.responst:', err.response)
-          res.json({
+          res.status(401).json({
             success: false,
-            data: err.response
+            data: err.response.data
           })
         }
         // 否则交给全局的错误处理中间件

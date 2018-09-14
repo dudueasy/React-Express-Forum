@@ -24,7 +24,9 @@ module.exports = (req, res, next) => {
   }
 
   // 重新构造 query
-  const query = Object.assign({}, req.query)
+  const query = Object.assign({}, req.query, {
+    accesstoken: needAccessToken && req.method === 'GET' ? user.accessToken : ''
+  })
 
   // 向 Cnode 发起请求, 根据 浏览器请求中的数据来判断
   // method 根据客户端请求中的 method 来决定
@@ -32,10 +34,15 @@ module.exports = (req, res, next) => {
   axios(`${baseUrl}/${path}`, {
     method: req.method,
     params: query,
-    data:  queryString.stringify(Object.assign({}, req.body, { accesstoken: user.accessToken || {} })),
-    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    data: queryString.stringify(Object.assign(
+      {}, req.body, {
+        accesstoken: needAccessToken && req.method === 'POST' ? user.accessToken : ''
+      }
+    )),
+    headers: {'content-type': 'application/x-www-form-urlencoded'},
   }).then(
     result => {
+      console.log('user data from cnode:', req.session.user)
       if (result.status === 200) {
         res.send(result.data)
       } else {

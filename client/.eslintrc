@@ -19,7 +19,9 @@
     "react/jsx-tag-spacing":[0],
     "no-console":[0],
     "react/destructuring-assignment":[0],
-    "react/require-default-props":[0]
+    "react/require-default-props":[0],
+    "arrow-body-style":[0],
+    "no-underscore-dangle":[0]
   }
 }
 

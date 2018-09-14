@@ -2,6 +2,8 @@ const path = require('path')
 const webpack = require('webpack')
 const webpackMerge = require('webpack-merge')
 
+require('dotenv').config();
+
 // html-webpack-plugin 是一个 webpack plugin, 用于在 build 的时候在指定目录生成一个 HTML 文件
 const HTMLPlugin = require('html-webpack-plugin')
 
@@ -28,7 +30,11 @@ let config = webpackMerge(baseConfig, {
     publicPath: '/public/',
   },
   plugins: [
-    new HTMLPlugin({template: path.join(__dirname, '../client/template.html')})
+    new HTMLPlugin({template: path.join(__dirname, '../client/template.html')}),
+    new HTMLPlugin({
+      template: '!!ejs-compiled-loader!' + path.join(__dirname, '../client/server.template.ejs'),
+      filename: 'server.ejs'
+    })
   ]
 })
 
@@ -46,7 +52,7 @@ if (isDev) {
   config.devServer = {
     // 允许局域网访问
     host: '0.0.0.0',
-    port: '8888',
+    port: process.env.DEV_SERVER_PORT,
     // 定义 devServer 服务器服务/工作的目录 (设置为和webpack配置中的 output.path 一致即可)
     contentBase: path.join(__dirname, '../dist'),
     // 开启热模块替换 (需要在react app中进行配置, 否则会报错)
@@ -60,6 +66,9 @@ if (isDev) {
     historyApiFallback: {
       index: '/public/index.html'
     },
+    proxy: {
+      '/api': `http://localhost:${process.env.NODE_SERVER_PORT}`
+    }
   }
   config.plugins.push(new webpack.HotModuleReplacementPlugin())
 }

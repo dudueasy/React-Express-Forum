@@ -1,10 +1,12 @@
 const path = require('path')
 const webpackMerge = require('webpack-merge')
 const baseConfig = require('./webpack.config.base')
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = webpackMerge(baseConfig, {
   // 定义构建目标为 nodejs 环境
   target: 'node',
+  externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
   // 定义入口文件
   entry: {
     // 使用 path.join 来获得绝对路径

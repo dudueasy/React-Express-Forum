@@ -4,14 +4,16 @@ const path = require('path')
 const express = require('express')
 const serveFavicon = require('serve-favicon')
 const bodyParser = require('body-parser')
-const queryString = require('query-string')
 const session = require('express-session')
 
+
+// load data from .env to process.env
+require('dotenv').config();
 
 // 初始化
 let isDev = process.env.NODE_ENV === "development"
 let app = express()
-let port = 8001
+let port = process.env.NODE_SERVER_PORT
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -26,7 +28,7 @@ app.use(session({
 }))
 
 app.use(serveFavicon(path.join(__dirname, '../favicon.ico')))
-
+app.use((req, res,next)=>{console.log(req.path); next()})
 app.use('/api/user', require('../util/handle-login'))
 app.use('/api', require('../util/proxy'))
 
@@ -55,6 +57,7 @@ if (!isDev) {
     res.end(template)
   })
 }
+
 // 定义开发环境下的逻辑
 else {
   const devStatic = require('../util/dev-static')
