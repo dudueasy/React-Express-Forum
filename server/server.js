@@ -1,4 +1,3 @@
-const ReactDomServer = require('react-dom/server')
 const fs = require('fs')
 const path = require('path')
 const express = require('express')
@@ -25,22 +24,23 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: false,
-  cookie: {maxAge: 1000*60*60*24 }
+  cookie: {maxAge: 1000 * 60 * 60 * 24}
 }))
 
 app.use(serveFavicon(path.join(__dirname, '../favicon.ico')))
-app.use((req, res,next)=>{console.log(req.path); next()})
+app.use((req, res, next) => {
+  console.log(req.path);
+  next()
+})
 app.use('/api/user', require('../util/handle-login'))
 app.use('/api', require('../util/proxy'))
 
-app.use((error, req, res, next)=>{
+app.use((error, req, res, next) => {
   console.log(error)
 })
 
 // 定义非开发环境下的代码逻辑
 if (!isDev) {
-
-  // 这里引用的是 webpack 输出的 bundle, 由于 ES6 module 的特性, 这里需要指定 require 的特定变量(default), 否则会报错.
   let serverEntry = require('../dist/server-entry')
 
   // 引用 dist/index 文件作为模板 (由 webpack.config.client.js 生成).
@@ -51,8 +51,10 @@ if (!isDev) {
 
   // 对首页/入口文件的响应
   app.get("*", (req, res, next) => {
-    serverRender(serverEntry, template, req,res)
-  }).cagtc
+    serverRender(serverEntry, template, req, res)
+  }).catch(error => {
+    next(error)
+  })
 }
 
 // 定义开发环境下的逻辑

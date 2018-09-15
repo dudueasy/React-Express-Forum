@@ -3,11 +3,7 @@ const axios = require('axios')
 const webpack = require('webpack')
 const MemoryFs = require('memory-fs')
 const path = require('path')
-const ReactDomServer = require('react-dom/server')
 const proxy = require('http-proxy-middleware')
-const asyncBoostrap = require('react-async-bootstrapper')
-const ejs = require('ejs')
-const serialize = require('serialize-javascript')
 
 
 const serverConfig = require('../build/webpack.config.server')
@@ -24,7 +20,9 @@ const getTemplate = () => {
   })
 }
 
-// part2: 创建一个函数 getModuleFromString , 通过 module api 和 vm 模块创建新模块, 接收 bundle 字符串和模文件名来生成一个 nodejs 模块
+// part2: 创建一个函数 getModuleFromString  用来实现 require(), 接收 bundle 字符串和模文件名来生成一个 nodejs 模块
+// 通过 NativeModule api 和 vm 模块实现特定方式 require(bundle)
+//
 const getModuleFromString = (bundle, require, filename, dirname) => {
   const NativeModule = require('module')
   let functionWrapper = NativeModule.wrap(bundle)
