@@ -2,6 +2,9 @@
 
 ## 工程架构
 参考: [git repo:An-Initialized-SSR-React-Project](https://github.com/dudueasy/An-Initialized-SSR-React-Project)
+服务端渲染 for React Router 4
+服务端渲染 for Mobx
+服务端渲染 for Material-UI
 
 ## 项目结构
 ### 客户端 bundle 入口
