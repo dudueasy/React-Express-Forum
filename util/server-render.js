@@ -49,6 +49,7 @@ module.exports = function serverRender(bundle, template, req, res) {
 
     // serverBundle( store, context_for_staticRouter, url_for_staticRouter)
     const app = createApp(stores, routerContext, req.url, MUIConfig)
+    const css = sheetsRegistry.toString()
 
     asyncBoostrap(app).then(() => {
 
@@ -76,7 +77,8 @@ module.exports = function serverRender(bundle, template, req, res) {
       let html = ejs.render(template, {
         appString: content,
         initialState: serialize(state),
-        helmet: helmet
+        helmet: helmet,
+        css: css
       })
 
       res.send(html)
