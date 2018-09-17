@@ -15,26 +15,6 @@ import AppStateClass from './store/app-state'
 const root = document.getElementById('root')
 
 
-// A wrapper component for MUI Client-Side config
-const createApp = (Component) => {
-  class Main extends React.Component { //eslint-disable-line
-    // Remove the server-side injected CSS while client react start working.
-
-    componentDidMount() {
-      const jssStyles = document.getElementById('jss-server-side');
-      if (jssStyles && jssStyles.parentNode) {
-        jssStyles.parentNode.removeChild(jssStyles);
-      }
-    }
-
-    render() {
-      return <Component/>
-    }
-  }
-
-  return Main
-}
-
 // Create a theme instance for MUI
 const theme = createMuiTheme({
   palette: {
@@ -66,13 +46,13 @@ const render = (Component) => {
 }
 
 
-render(createApp(App))
+render(App)
 
 // apply webpack Hot Module Replacement API
 if (module.hot) {
   module.hot.accept('./views/App.jsx', () => {
     const NextApp = require('./views/App.jsx').default  //eslint-disable-line
 
-    render(createApp(NextApp))
+    render(NextApp)
   })
 }

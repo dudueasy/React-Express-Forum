@@ -38,7 +38,7 @@ export default class TopicList extends React.Component {
       <div>
         <Helmet>
           <title>This is topic list</title>
-          <meta name="description" content="this is description" />
+          <meta name="description" content="this is description"/>
         </Helmet>
         <input type="text" onChange={this.changeName}/>
         This is topic list component
