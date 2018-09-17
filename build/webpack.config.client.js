@@ -18,6 +18,7 @@ let config = webpackMerge(baseConfig, {
     // 使用 path.join 来获得绝对路径
     app: path.join(__dirname, '../client/app.js')
   },
+  mode: 'production',
   output: {
     // 定义输出文件名, 这里使用 webpack 变量, [name] 是入口名, 此处对应 app, [hash]是打包完成的文件的哈希值, 用于和浏览器缓存协作.
     filename: '[name].[hash].js',
@@ -30,7 +31,7 @@ let config = webpackMerge(baseConfig, {
     publicPath: '/public/',
   },
   plugins: [
-    // new HTMLPlugin({template: path.join(__dirname, '../client/template.html')}),
+    new HTMLPlugin({template: path.join(__dirname, '../client/template.html')}),
     new HTMLPlugin({
       template: '!!ejs-compiled-loader!' + path.join(__dirname, '../client/server.template.ejs'),
       filename: 'server.ejs'
@@ -41,6 +42,8 @@ let config = webpackMerge(baseConfig, {
 if (isDev) {
   console.log('current env is development')
 
+  config.mode = 'development'
+  config.devtool = "#cheap-module-eval-source-map"
   // 实现热模块更新的 entry 配置 (将react-hot-loader提供的插件一并打包)
   config.entry = {
     app: [
