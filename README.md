@@ -6,7 +6,7 @@
 服务端渲染 for Mobx
 服务端渲染 for Material-UI
 
-## 项目结构
+## 文件结构
 ### 客户端 bundle 入口
 client/app.js
 ### 服务端 bundle 入口
@@ -17,10 +17,30 @@ server/server.js
 ## 功能实现和依赖
 ### 前端路由
 React-router
-### react store
+### store solution
 Mobx
 ### session
 express-session
+
+
+## build & start
+# start webpack-dev-server
+~~~
+npm run dev:client
+~~~
+
+# start server rendering
+~~~
+npm run dev:server
+~~~
+
+# build
+~~~
+npm run build
+~~~
+
+
+
 
 
 
