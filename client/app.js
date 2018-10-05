@@ -4,24 +4,17 @@ import ReactDOM from 'react-dom'
 import {AppContainer} from 'react-hot-loader'  // eslint-disable-line
 import {BrowserRouter} from 'react-router-dom'
 import {Provider} from 'mobx-react'
-import {MuiThemeProvider, createMuiTheme, createGenerateClassName} from '@material-ui/core/styles'
+import {MuiThemeProvider, createGenerateClassName} from '@material-ui/core/styles'
 import JssProvider from 'react-jss/lib/JssProvider';
 
 import App from './views/App'
 import AppStateClass from './store/app-state'
+import theme from './views/MuiTheme'
 
 const root = document.getElementById('root')
 
 
 // initialization for MUI
-const theme = createMuiTheme(
-  {
-    palette: {
-      Primary: {main: '#9E9E9E'},
-      Secondary: {main: '#607D8B'},
-    },
-  },
-);
 const generateClassName = createGenerateClassName();
 
 
@@ -51,6 +44,7 @@ const render = (Component) => {
 const wrapApp = (Component) => {
   class Main extends React.Component {
     componentDidMount() {
+      // for server-side-rendering
       const jssStyles = document.getElementById('jss-server-side');
       if (jssStyles && jssStyles.parentNode) {
         jssStyles.parentNode.removeChild(jssStyles);

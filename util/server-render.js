@@ -3,29 +3,16 @@ const asyncBoostrap = require('react-async-bootstrapper')
 const ejs = require('ejs')
 const serialize = require('serialize-javascript')
 
-
 // MUI dependencies and MUI-SSR config
 const {SheetsRegistry} = require('react-jss/lib/jss')
-const {createGenerateClassName, createMuiTheme} = require('@material-ui/core/styles')
-const pink = require('@material-ui/core/colors/pink').default
-const lightBlue = require('@material-ui/core/colors/lightBlue').default
-
+const {createGenerateClassName} = require('@material-ui/core/styles')
 
 // generate MUI variables, create MUIConfig
 const sheetsRegistry = new SheetsRegistry();
 const generateClassName = createGenerateClassName();
 const sheetsManager = new Map();
-const theme = createMuiTheme({
-  palette: {
-    primary: pink,
-    accent: lightBlue,
-    type: 'light',
-  },
-});
 
-
-let MUIConfig = {sheetsRegistry, generateClassName, theme, sheetsManager}
-
+let MUIConfig = {sheetsRegistry, generateClassName, sheetsManager}
 
 // getStoreStete 的返回值: {appState: {count: xx, name: xx}}
 const getStoreState = (stores) => {
@@ -34,18 +21,14 @@ const getStoreState = (stores) => {
   }, {})
 }
 
-
 module.exports = function serverRender(bundle, template, req, res) {
   return new Promise((resolve, reject) => {
-
     const createStoreMap = bundle.createStoreMap
     const createApp = bundle.default
-
     const routerContext = {}
 
     // default stores = {appState: {count: 0, name: 'apolo',msg:`${this.name}:${this.count}`, add:fn, toJson:fn}}
     let stores = createStoreMap()
-
 
     // serverBundle( store, context_for_staticRouter, url_for_staticRouter)
     const app = createApp(stores, routerContext, req.url, MUIConfig)
@@ -89,23 +72,4 @@ module.exports = function serverRender(bundle, template, req, res) {
   })
 
 }
-
-
-// Create a sheetsRegistry instance.
-// const sheetsRegistry = new SheetsRegistry();
-
-// Create a sheetsManager instance.
-// const sheetsManager = new Map();
-
-// Create a theme instance.
-// const theme = createMuiTheme({
-//   palette: {
-//     primary: green,
-//     accent: red,
-//     type: 'light',
-//   },
-// });
-
-// Create a new class name generator.
-// const generateClassName = createGenerateClassName();
 

@@ -7,6 +7,7 @@ import {MuiThemeProvider} from '@material-ui/core/styles';
 
 import {createStoreMap} from './store/store'
 import App from './views/App'
+import theme from './views/MuiTheme'
 
 useStaticRendering(true)
 require('source-map-support').install()
@@ -15,7 +16,7 @@ require('source-map-support').install()
 // server-bundle 是一个函数 可以接收 store 作为 provider 传递的数据
 export default function createApp(stores, routerContext, url, MUIConfig = {}) {
   const {
-    sheetsRegistry, generateClassName, theme, sheetsManager,
+    sheetsRegistry, generateClassName, sheetsManager,
   } = MUIConfig
 
   // stores = {store: xxx, ...}

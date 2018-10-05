@@ -13,7 +13,7 @@ require('dotenv').config();
 // 初始化
 let isDev = process.env.NODE_ENV === "development"
 let app = express()
-let port = process.env.NODE_SERVER_PORT
+let port = process.env.NODE_SERVER_PORT || 8888
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
