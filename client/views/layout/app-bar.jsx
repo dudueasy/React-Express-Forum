@@ -1,34 +1,75 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import {withStyles, withTheme} from '@material-ui/core/styles';
+import {
+  Grid,
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Button,
+} from '@material-ui/core';
+
+import {Home} from '@material-ui/icons';
 
 const styles = {
-  root: {
+  Typography: {
     flexGrow: 1,
   },
 };
 
-function SimpleAppBar(props) {
-  const {classes} = props;
+@withStyles(styles)
+@withTheme()
+class TopBar extends Component {
+  handleHomeClick = () => {
+    console.log('home icon is clicked')
+  }
 
-  return (
-    <div className={classes.root}>
-      <AppBar position="fixed" color="inherit">
-        <Toolbar>
-          <Typography variant="title" color="inherit">
-            Photos
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+  handleNewTopicClick = () => {
+    console.log('new topic button is clicked')
+  }
+
+  handleLoginClick = () => {
+    console.log('login button is clicked')
+  }
+
+  render() {
+    const {classes, theme} = this.props;
+    console.log('theme object:', theme)
+
+    return (
+      <Grid container xs={12}>
+        <AppBar position="fixed" color="inherit">
+          <Toolbar>
+            <IconButton color="inherit" aria-label="Menu">
+              <Home onClick={this.handleHomeClick}/>
+            </IconButton>
+            <Typography
+              className={classes.Typography}
+              variant="title"
+              color="inherit"
+            >
+              Nodejs Forum
+            </Typography>
+            <Button onClick={this.handleNewTopicClick} raised color="primary">
+              New Topic
+            </Button>
+            <Button onClick={this.handleLoginClick}>
+              Login
+            </Button>
+
+          </Toolbar>
+        </AppBar>
+      </Grid>
+    )
+  }
 }
 
-SimpleAppBar.propTypes = {
+
+TopBar.propTypes = {
   classes: PropTypes.object.isRequired, //eslint-disable-line
+  theme: PropTypes.object.isRequired, //eslint-disable-line
+
 };
 
-export default withStyles(styles)(SimpleAppBar);
+export default TopBar
