@@ -10,7 +10,6 @@ let config = webpackMerge(baseConfig, {
   entry: {
     app: path.join(__dirname, '../client/app.js')
   },
-  mode: 'production',
   output: {
     filename: '[name].[hash].js',
     path: path.join(__dirname, '../dist'),

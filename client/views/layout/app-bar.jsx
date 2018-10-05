@@ -18,8 +18,8 @@ const styles = {
   },
 };
 
-@withStyles(styles)
 @withTheme()
+@withStyles(styles)
 class TopBar extends Component {
   handleHomeClick = () => {
     console.log('home icon is clicked')
@@ -49,7 +49,7 @@ class TopBar extends Component {
               variant="title"
               color="inherit"
             >
-              Nodejs Forum
+              NodeUs
             </Typography>
             <Button onClick={this.handleNewTopicClick} raised color="primary">
               New Topic
@@ -69,7 +69,6 @@ class TopBar extends Component {
 TopBar.propTypes = {
   classes: PropTypes.object.isRequired, //eslint-disable-line
   theme: PropTypes.object.isRequired, //eslint-disable-line
-
 };
 
 export default TopBar

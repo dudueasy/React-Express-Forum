@@ -3,6 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Routes from '../config/router'
 import AppBar from './layout/app-bar'
+import Container from './layout/container'
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -17,7 +18,9 @@ export default class App extends React.Component {
       <React.Fragment>
         <CssBaseline/>
         <AppBar key="AppBar"/>
-        <Routes key="routes"/>
+        <Container>
+          <Routes key="routes"/>
+        </Container>
       </React.Fragment>
     )
   }
