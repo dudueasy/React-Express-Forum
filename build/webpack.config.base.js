@@ -30,6 +30,9 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      '@material-ui/core': '@material-ui/core/es'
+    }
   }
 }

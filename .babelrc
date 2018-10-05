@@ -1,11 +1,44 @@
 {
   "presets": [
-    "es2015",
-    "stage-1",
-    "react"
+    "@babel/preset-react",
+    "@babel/preset-env"
   ],
   "plugins": [
-    "transform-decorators-legacy",
-    "react-hot-loader/babel"
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    "@babel/plugin-proposal-class-properties",
+    "react-hot-loader/babel",
+    "@babel/transform-runtime",
+    [
+      "import",
+      {
+        "libraryName": "@material-ui/core",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "@material-ui/core"
+    ],
+    [
+      "import",
+      {
+        "libraryName": "@material-ui/icons",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "@material-ui/icons"
+    ],
+    [
+      "import",
+      {
+        "libraryName": "@material-ui/core/styles",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "@material-ui/core/styles"
+    ]
   ]
 }
