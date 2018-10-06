@@ -1,61 +1,30 @@
-import React from 'react'
-import {action} from 'mobx'
-import {observer, inject} from 'mobx-react'
-import PropTypes from 'prop-types'
-import {Helmet} from 'react-helmet'
+import React, {Fragment} from 'react'
 
-import AppStateClass from '../../store/app-state'
+import ListItemContainer from './list-item-container/index'
+import TopicTabs from './topic-tabs'
 
+//onListItemClick, topicData
 
-@inject('appState') @observer
-export default class TopicList extends React.Component {
-  constructor(props) {
-    super(props)
-    this.changeName = this.changeName.bind(this)
-  }
-
-  componentDidMount() {
-
-  }
-
-  @action changeName = (e) => {
-    this.props.appState.name = e.target.value
-  }
-
-  asyncBoostrap() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        this.props.appState.count = 3
-        resolve(true)
-      }, 3000)
-    })
-  }
-
-  render() {
-    const {appState} = this.props
-
-    return (
-      <div>
-        <Helmet>
-          <title>This is topic list</title>
-          <meta name="description" content="this is description"/>
-        </Helmet>
-        <input type="text" onChange={this.changeName}/>
-        This is topic list component
-        <p>
-          {appState.msg}
-        </p>
-      </div>
-    )
-  }
+const topicData = {
+  title: 'this is title of article',
+  img: 'xx',
+  tab: 'all',
+  username: 'apolo',
+  reply_count: 1,
+  visit_count: '100',
+  create_at: '2018/10/6'
 }
 
+export default props => (
+  <Fragment>
+    <TopicTabs/>
+    <ListItemContainer
+      onListItemClick={() => {
+        console.log('listItemContainer  onListItemClick')
+      }}
 
-TopicList.propTypes = {
-  appState: PropTypes.instanceOf(AppStateClass),
-}
+      topicData={topicData}
+    />
 
-
-// TopicList.defaultProps = {
-//   appState: new AppState(),
-// }
+  </Fragment>
+)

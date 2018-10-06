@@ -63,8 +63,8 @@ render(wrapApp(App))
 
 // apply webpack Hot Module Replacement API
 if (module.hot) {
-  module.hot.accept('./views/App.jsx', () => {
-    const NextApp = require('./views/App.jsx').default  //eslint-disable-line
+  module.hot.accept('./views/App.js', () => {
+    const NextApp = require('./views/App.js').default  //eslint-disable-line
 
     render(wrapApp(NextApp))
   })

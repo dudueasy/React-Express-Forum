@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react'
+import React, {Component} from 'react'
 import {Paper} from '@material-ui/core'
 import {WithStyles} from '@material-ui/core/styles'
 
@@ -13,11 +13,9 @@ const styles = theme => ({
 
 const Container = ({classes, children}) => {
   return (
-    <Fragment>
-      <Paper elevation={4} className={classes.root}>
-        {children}
-      </Paper>
-    </Fragment>
+    <Paper elevation={4} className={classes.root}>
+      {children}
+    </Paper>
   )
 }
 
