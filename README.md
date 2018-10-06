@@ -41,6 +41,6 @@ npm run build
 
 
 # App Structure
-![App Structure](./React-Forum.itmz)
+![App Structure](./React-Forum.png)
 
 
