@@ -13,9 +13,23 @@ import {
 import {Home} from '@material-ui/icons';
 
 const styles = {
+  AppBar: {
+    height: '56px'
+  },
+  ToolBar: {
+    height: 56,
+    '@media (min-width:0px) and (orientation: landscape)':
+      {height: 56, minHeight: 56},
+    '@media (min-width:600px) and ':
+      {height: 56, minHeight: 56}
+  },
   Typography: {
     flexGrow: 1,
   },
+  HomeIcon: {
+    marginLeft: -24
+  },
+
 };
 
 @withTheme()
@@ -39,10 +53,10 @@ class TopBar extends Component {
 
     return (
       <Grid container xs={12}>
-        <AppBar position="fixed" color="inherit">
-          <Toolbar>
-            <IconButton color="inherit" aria-label="Menu">
-              <Home onClick={this.handleHomeClick}/>
+        <AppBar position="fixed" color="inherit" className={classes.AppBar}>
+          <Toolbar className={classes.ToolBar}>
+            <IconButton size="small" color="inherit" aria-label="Menu">
+              <Home className={classes.HomeIcon} onClick={this.handleHomeClick}/>
             </IconButton>
             <Typography
               className={classes.Typography}

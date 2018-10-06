@@ -13,10 +13,6 @@ export default class TopicList extends React.Component {
     selectedTab: 0
   }
 
-  componentDidMount() {
-  }
-
-
   handleTabChange = (event, value) => {
     this.setState({
       selectedTab: value
@@ -28,7 +24,7 @@ export default class TopicList extends React.Component {
       setTimeout(() => {
         this.props.appState.count = 3
         resolve(true)
-      }, 3000)
+      }, 0)
     })
   }
 
@@ -45,7 +41,7 @@ export default class TopicList extends React.Component {
 
         <Tabs
           scrollable
-          scrollButtons="on"
+          scrollButtons="auto"
           value={selectedTab}
           onChange={this.handleTabChange}
         >

@@ -6,8 +6,7 @@ import PropTypes from 'prop-types';
 
 const styles = theme => ({
   root: {
-    margin: 24,
-    marginTop: 80
+    marginTop: 60
   },
 })
 

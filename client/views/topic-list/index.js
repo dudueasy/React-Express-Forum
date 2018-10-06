@@ -6,7 +6,7 @@ import TopicTabs from './topic-tabs'
 //onListItemClick, topicData
 
 const topicData = {
-  title: 'this is title of article',
+  title: 'This is title of article',
   img: 'xx',
   tab: 'all',
   username: 'apolo',
