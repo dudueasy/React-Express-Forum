@@ -18,7 +18,6 @@ const createTopicData = topicData => (
 // 创建一个 Topic对象 这个对象中的属性都是 observable
 class Topic {
   constructor(topicData) {
-    console.log(topicData)
     extendObservable(this, topicData)
   }
 
@@ -28,26 +27,37 @@ class Topic {
 
 // TopicStore 对象提供了 topicStoreList 属性, 作为 Topic 的容器
 class TopicStore {
-  @observable topicStoreList
-
   @observable syncing
 
-  // initialize topicStore with empty [] as topicListData
-  constructor(syncing = false, topicStoreList = []) {
+  @observable topicDataList
+
+  constructor(syncing = false, topicDataList = []) {
     this.syncing = syncing
 
     // convert topics data into Mobx Topic observable object
-    this.topicStoreList = topicStoreList.map(
+    this.topicDataList = topicDataList
+  }
+
+  // topicStoreList is a container for Topic instances
+  @computed
+  get topicStoreList() {
+    return this.topicDataList.map(
       topicData => new Topic(createTopicData(topicData))
     )
   }
 
-  // a method to push new Topic into this.topicStoreList
-  addTopicStore(topicData) {
-    this.topicStoreList.push(new Topic(createTopicData(topicData)))
+  // push a new data to topicDatalist
+  @action
+  addTopicDataList(topicData) {
+    this.topicDataList.push(topicData)
   }
 
-  // get topicListData and update topicStoreList
+  @action
+  updateTopicDataList(newTopicDataList) {
+    this.topicDataList.replace(newTopicDataList)
+  }
+
+// get topicListData and update topicStoreList
   @action
   fetchTopicListData() {
     return new Promise((resolve, reject) => {
@@ -58,9 +68,12 @@ class TopicStore {
           if (response.success) {
             console.log('get /topics get response successfully')
 
-            response.data.forEach((topicData) => {
-              this.addTopicStore(topicData)
-            })
+            // response.data.forEach((topicData) => {
+            //   this.topicDataList.push(topicData)
+            // })
+
+            this.updateTopicDataList(response.data)
+
             resolve()
           } else {
             reject(new Error('something wrong during request'))

@@ -40,7 +40,6 @@ export default class TopicList extends Component {
         <List>
 
           {topicStoreList.map((topicData, i) => {
-            console.log(i, topicData)
             return (
               < ListItemContainer
                 onListItemClick={() => {
