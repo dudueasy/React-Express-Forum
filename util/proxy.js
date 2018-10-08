@@ -5,7 +5,6 @@ const baseUrl = 'https://cnodejs.org/api/v1'
 
 // 这个中间件用来代理 cnodejs 接口
 module.exports = (req, res, next) => {
-  const path = req.path
   // 初始化用户数据
   const user = req.session.user || {}
 
@@ -31,7 +30,13 @@ module.exports = (req, res, next) => {
   // 向 Cnode 发起请求, 根据 浏览器请求中的数据来判断
   // method 根据客户端请求中的 method 来决定
   // content-type 要设置成表单数据使用的 content-type
-  axios(`${baseUrl}/${path}`, {
+
+  let requestUrl = `${baseUrl}${req.url}`
+
+  console.log(`request path: ${req.url}`)
+  console.log('requestUrl:', requestUrl)
+
+  axios(requestUrl, {
     method: req.method,
     params: query,
     data: queryString.stringify(Object.assign(
@@ -43,10 +48,15 @@ module.exports = (req, res, next) => {
   }).then(
     result => {
       console.log('user data from cnode:', req.session.user)
+      console.log(result)
+
       if (result.status === 200) {
-        res.send(result.data)
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888')
+        res.json(result.data)
       } else {
-        res.status(result.status).send(result.data)
+
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888')
+        res.status(result.status).json(result.data)
       }
     }
   ).catch(err => {

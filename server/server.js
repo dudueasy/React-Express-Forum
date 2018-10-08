@@ -29,15 +29,12 @@ app.use(session({
 
 app.use(serveFavicon(path.join(__dirname, '../favicon.ico')))
 app.use((req, res, next) => {
-  console.log(req.path);
+  console.log('request url:', req.url);
   next()
 })
 app.use('/api/user', require('../util/handle-login'))
 app.use('/api', require('../util/proxy'))
 
-app.use((error, req, res, next) => {
-  console.log(error)
-})
 
 // 定义非开发环境下的代码逻辑
 if (!isDev) {
@@ -52,16 +49,19 @@ if (!isDev) {
   // 对首页/入口文件的响应
   app.get("*", (req, res, next) => {
     serverRender(serverEntry, template, req, res)
-  }).catch(error => {
-    next(error)
   })
 }
+
 
 // 定义开发环境下的逻辑
 else {
   const devStatic = require('../util/dev-static')
   devStatic(app)
 }
+
+app.use((error, req, res, next) => {
+  console.log(error)
+})
 
 
 app.listen(port, () => {

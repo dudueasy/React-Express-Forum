@@ -8,8 +8,8 @@ import {MuiThemeProvider, createGenerateClassName} from '@material-ui/core/style
 import JssProvider from 'react-jss/lib/JssProvider';
 
 import App from './views/App'
-import AppStateClass from './store/app-state'
 import theme from './views/MuiTheme'
+import {AppState, TopicStore} from './store/store'
 
 const root = document.getElementById('root')
 
@@ -22,11 +22,18 @@ const generateClassName = createGenerateClassName();
 const initialState = window.__INITIAL_STATE__ || {}
 delete window.__INITIAL_STATE__
 
+// create Initial State
+const appState = new AppState(initialState.appState)
+const topicStore = new TopicStore(initialState.topicStore)
+
 
 const render = (Component) => {
   ReactDOM.hydrate(
     <AppContainer>
-      <Provider appState={new AppStateClass(initialState.appState)}>
+      <Provider
+        appState={appState}
+        topicStore={topicStore}
+      >
         <BrowserRouter>
 
           <JssProvider generateClassName={generateClassName}>

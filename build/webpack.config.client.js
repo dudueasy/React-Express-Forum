@@ -5,6 +5,7 @@ const HTMLPlugin = require('html-webpack-plugin')
 const baseConfig = require('./webpack.config.base')
 
 const isDev = process.env.NODE_ENV === 'development'
+require('dotenv').config()
 
 let config = webpackMerge(baseConfig, {
   entry: {
@@ -20,7 +21,10 @@ let config = webpackMerge(baseConfig, {
     new HTMLPlugin({
       template: '!!ejs-compiled-loader!' + path.join(__dirname, '../client/server.template.ejs'),
       filename: 'server.ejs'
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env.API_BASE': JSON.stringify(`http://127.0.0.1:${process.env.NODE_SERVER_PORT}`)
+    }),
   ]
 })
 

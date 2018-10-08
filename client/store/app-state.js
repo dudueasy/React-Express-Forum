@@ -1,4 +1,4 @@
-// 定义一个 Mobx store 的构造函数 AppStateClass.
+// 定义一个 Mobx store 的构造函数 AppState
 import {
   observable,
   computed,
@@ -6,8 +6,8 @@ import {
 }
   from 'mobx'
 
-// AppStateClass receive count, name as params
-export default class AppStateClass {
+// AppState receive count, name as params
+export default class AppState {
   constructor(count = 0, name = 'apolo') {
     this.count = count
     this.name = name
@@ -34,11 +34,3 @@ export default class AppStateClass {
     }
   }
 }
-
-// update counter
-// setInterval(
-//   () => {
-//     appState.add()
-//   },
-//   1000,
-// )

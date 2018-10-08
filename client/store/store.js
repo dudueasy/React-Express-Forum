@@ -1,14 +1,12 @@
-import AppStateClass from './app-state'
+import AppState from './app-state'
+import {TopicStore} from './topic-store'
 
-export const AppState = AppStateClass
-
-export default {
-  AppState,
-}
+export {AppState, TopicStore}
 
 // 这个函数为服务端渲染的组件提供store对象 {appState: storeObj}
-export const createStoreMap = () => {
+export const createStoreMap = (count, name) => {
   return {
-    appState: new AppState(),
+    appState: new AppState(count, name),
+    TopicStore: new TopicStore()
   }
 }

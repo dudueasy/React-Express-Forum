@@ -31,10 +31,7 @@ const styles = theme => ({
 
 const ListItemContainer = ({classes, onListItemClick, topicData}) => (
   <ListItem button onClick={onListItemClick}>
-    <ListItemAvatar>
-      {/*<Avatar src={topicData.img}/>*/}
-      <Home/>
-    </ListItemAvatar>
+    <Avatar src={topicData.author.avatar_url}/>
 
     <ListItemText
 

@@ -49,7 +49,7 @@ class TopBar extends Component {
 
   render() {
     const {classes, theme} = this.props;
-    console.log('theme object:', theme)
+    // console.log('theme object:', theme)
 
     return (
       <Grid container xs={12}>
