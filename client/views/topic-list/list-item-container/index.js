@@ -19,13 +19,18 @@ const styles = theme => ({
     padding: '0 5px',
     borderRadius: '2px'
   },
-  primary: {},
+  primary: {
+    'white-space ': 'nowrap',
+    'overflow ': 'hidden',
+    'text-overflow ': 'ellipsis '
+  },
   secondary: {
     fontSize: 10
   },
   reply_count: {
     color: theme.palette.Secondary,
-    fontWeight: 'bold'
+    fontWeight:
+      'bold'
   }
 })
 
@@ -44,10 +49,16 @@ const ListItemContainer = ({classes, onListItemClick, topicData}) => (
 
       secondary={(
         <div className={classes.secondary}>
-          <span>{topicData.username}</span>
-          <span className={classes.reply_count}> {topicData.reply_count}</span>
+          <span>
+            {topicData.author.loginname}&nbsp;
+          </span>
+          <span className={classes.reply_count}>
+             &nbsp;{topicData.reply_count}&nbsp;
+          </span>
           <span>/{topicData.visit_count}</span>
-          <span> 创建时间: {topicData.create_at}</span>
+          <span>
+            &nbsp;创建时间: {topicData.create_at}
+          </span>
         </div>
       )
       }

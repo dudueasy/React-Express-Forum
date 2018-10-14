@@ -4,20 +4,28 @@ import {action} from 'mobx'
 import {observer, inject} from 'mobx-react'
 import PropTypes from 'prop-types'
 import {Helmet} from 'react-helmet'
+import queryString from 'query-string'
 
 import AppStateClass from '../../store/app-state'
+import {tabs} from '../../util/variable-difine'
 
 @inject('appState') @observer
 export default class TopicList extends React.Component {
-  state = {
-    selectedTab: 0
+
+
+  get getTab() {
+    return queryString.parse(this.props.location.search).tab
   }
 
-  handleTabChange = (event, value) => {
-    this.setState({
-      selectedTab: value
+  handleTabChange = (event, tabValue) => {
+    console.log('currentTabValue: ', tabValue)
+    console.log('this.props.history:', this.props)
+    this.props.history.push({
+      pathname: this.props.location.pathname,
+      search: `?tab=${tabValue}`
     })
   }
+
 
   asyncBoostrap() {
     return new Promise((resolve) => {
@@ -30,7 +38,7 @@ export default class TopicList extends React.Component {
 
   render() {
     const {appState} = this.props
-    const {selectedTab} = this.state
+    const {history} = this.props
 
     return (
       <Fragment>
@@ -42,15 +50,14 @@ export default class TopicList extends React.Component {
         <Tabs
           scrollable
           scrollButtons="auto"
-          value={selectedTab}
+          value={this.getTab}
           onChange={this.handleTabChange}
         >
-          <Tab label="全部"/>
-          <Tab label="精华"/>
-          <Tab label="分享"/>
-          <Tab label="问答"/>
-          <Tab label="招聘"/>
-          <Tab label="测试"/>
+          {Object.keys(tabs).map(
+            key => (<Tab label={tabs[key]} value={key} key={key}/>
+            )
+          )}
+
         </Tabs>
       </Fragment>
     )
@@ -60,4 +67,7 @@ export default class TopicList extends React.Component {
 
 TopicList.propTypes = {
   appState: PropTypes.instanceOf(AppStateClass),
+  history: PropTypes.object.isRequired, // eslint-disable-line
+  location: PropTypes.object.isRequired, // eslint-disable-line
+  match: PropTypes.object.isRequired // eslint-disable-line
 }

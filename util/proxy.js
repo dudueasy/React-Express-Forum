@@ -27,13 +27,16 @@ module.exports = (req, res, next) => {
     accesstoken: needAccessToken && req.method === 'GET' ? user.accessToken : ''
   })
 
+
+  console.log('query: ', query)
+
   // 向 Cnode 发起请求, 根据 浏览器请求中的数据来判断
   // method 根据客户端请求中的 method 来决定
   // content-type 要设置成表单数据使用的 content-type
 
-  let requestUrl = `${baseUrl}${req.url}`
+  let requestUrl = `${baseUrl}${req.path}`
 
-  console.log(`request path: ${req.url}`)
+  console.log(`request path: ${req.path}`)
   console.log('requestUrl:', requestUrl)
 
   axios(requestUrl, {
@@ -48,14 +51,14 @@ module.exports = (req, res, next) => {
   }).then(
     result => {
       console.log('user data from cnode:', req.session.user)
-      console.log(result)
+      console.log(`request ${requestUrl} successfully`)
 
       if (result.status === 200) {
-        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888')
+        res.setHeader('Access-Control-Allow-Origin', '*')
         res.json(result.data)
       } else {
 
-        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888')
+        res.setHeader('Access-Control-Allow-Origin', '*')
         res.status(result.status).json(result.data)
       }
     }

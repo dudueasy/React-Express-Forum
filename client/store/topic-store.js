@@ -2,7 +2,6 @@ import {
   observable,
   computed,
   action,
-  toJS,
   extendObservable
 } from 'mobx'
 
@@ -46,40 +45,45 @@ class TopicStore {
     )
   }
 
-  // push a new data to topicDatalist
+  // push a new data item to topicDataList
   @action
   addTopicDataList(topicData) {
     this.topicDataList.push(topicData)
   }
 
+  // replace all topicDataList with new TopicDataList
   @action
   updateTopicDataList(newTopicDataList) {
     this.topicDataList.replace(newTopicDataList)
   }
 
-// get topicListData and update topicStoreList
+  // toggle syncing
   @action
-  fetchTopicListData() {
-    return new Promise((resolve, reject) => {
-      this.syncing = true
+  toggleSyncing() {
+    this.syncing = !this.syncing
+    console.log('syncing: ', this.syncing)
+  }
 
-      get('/topics', {mdrender: false})
+  // get topicListData and update topicStoreList
+  @action
+  fetchTopicListData(currentTab) {
+    return new Promise((resolve, reject) => {
+      this.toggleSyncing()
+
+      currentTab = currentTab || 'all'
+      console.log('currentTab', currentTab)
+
+      get('/topics', {mdrender: false, tab: currentTab})
         .then((response) => {
           if (response.success) {
-            console.log('get /topics get response successfully')
-
-            // response.data.forEach((topicData) => {
-            //   this.topicDataList.push(topicData)
-            // })
-
             this.updateTopicDataList(response.data)
-
+            console.log('topicDataList:', this.topicDataList)
             resolve()
           } else {
             reject(new Error('something wrong during request'))
           }
 
-          this.syncing = false
+          this.toggleSyncing()
         })
     }).catch((err) => {
       this.syncing = false

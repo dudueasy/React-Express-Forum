@@ -30,7 +30,11 @@
     "react/jsx-indent-props":[0],
     "react/jsx-one-expression-per-line":[0],
     "no-param-reassign": [0],
-    "indent": [0]
+    "indent": [0],
+    "jsx-quotes": [0],
+    "padded-blocks": [0],
+    "react/sort-comp":[0],
+    "react/jsx-closing-tag-location":[0]
   }
 }
 

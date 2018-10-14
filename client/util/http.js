@@ -20,7 +20,6 @@ export function get(url, paramsObj) {
       .then((response) => {
         const {data} = response
         if (data && data.success === true) {
-          console.log(' get data: ', data)
           resolve(data)
         } else {
           reject(data)
