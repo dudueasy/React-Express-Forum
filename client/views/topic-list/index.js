@@ -31,10 +31,10 @@ const style = theme => ({
 ))
 @observer
 export default class TopicList extends Component {
+
   componentDidMount() {
     console.log('component Did Mount')
     console.log(this.getTab)
-    this.props.topicStore.fetchTopicListData(this.getTab)
   }
 
   get getTab() {
@@ -53,15 +53,13 @@ export default class TopicList extends Component {
         <List className={classes.contentArea}>
           {topicStoreList.map((topicData, i) => {
             return (
-              <Fragment>
-                < ListItemContainer
-                  // key={topicData.id}
-                  onListItemClick={() => {
-                    console.log('listItemContainer  onListItemClick')
-                  }}
-                  topicData={topicData}
-                />
-              </Fragment>
+              < ListItemContainer
+                // key={topicData.id}
+                onListItemClick={() => {
+                  console.log('listItemContainer  onListItemClick')
+                }}
+                topicData={topicData}
+              />
             )
           })
           }

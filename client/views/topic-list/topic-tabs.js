@@ -20,7 +20,6 @@ import {tabs} from '../../util/variable-difine'
 @observer
 export default class TopicList extends React.Component {
 
-
   get getTab() {
     return queryString.parse(this.props.location.search).tab
   }
@@ -32,7 +31,8 @@ export default class TopicList extends React.Component {
       pathname: this.props.location.pathname,
       search: `?tab=${tabValue}`
     })
-    this.props.topicStore.fetchTopicListData(tabValue)
+
+    this.props.topicStore.updateTopicTab(tabValue)
   }
 
 

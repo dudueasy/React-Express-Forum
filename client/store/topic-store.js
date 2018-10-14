@@ -3,7 +3,8 @@ import {
   computed,
   action,
   reaction,
-  extendObservable
+  extendObservable,
+  autorun
 } from 'mobx'
 
 import {topicSchema} from '../util/variable-difine'
@@ -31,12 +32,15 @@ class TopicStore {
 
   @observable topicDataList
 
+  @observable currentTopicTab
 
-  constructor(syncing = false, topicDataList = []) {
+
+  constructor(syncing = false, topicDataList = [], currentTab = '') {
     this.syncing = syncing
 
     // convert topics data into Mobx Topic observable object
     this.topicDataList = topicDataList
+    this.currentTopicTab = currentTab
   }
 
   // topicStoreList is a container for Topic instances
@@ -59,6 +63,12 @@ class TopicStore {
     this.topicDataList.replace(newTopicDataList)
   }
 
+  @action
+  updateTopicTab(newTab) {
+    console.log('topic tab is updated')
+    this.currentTopicTab = newTab
+  }
+
   // toggle syncing
   @action
   toggleSyncing() {
@@ -68,14 +78,11 @@ class TopicStore {
 
 
   // get topicListData and update topicStoreList
-  @action
   fetchTopicListData(currentTab) {
     return new Promise((resolve, reject) => {
       this.toggleSyncing()
 
       currentTab = currentTab || 'all'
-      console.log('currentTab', currentTab)
-
       get('/topics', {mdrender: false, tab: currentTab})
         .then((response) => {
           if (response.success) {
@@ -86,7 +93,7 @@ class TopicStore {
             reject(new Error('something wrong during request'))
           }
 
-          this.toggleSyncing()
+          this.syncing = false
         })
     }).catch((err) => {
       this.syncing = false
@@ -94,13 +101,13 @@ class TopicStore {
     })
   }
 
-  // xxx = reaction(
-  //   () => (
-  //     this.currentTab
-  //   ), (tab) => {
-  //     this.fetchTopicListData()
-  //   }
-  // )
+  reactToTab = reaction(
+    () => this.currentTopicTab,
+    (currentTopicTab) => {
+      this.fetchTopicListData(currentTopicTab)
+    }
+  )
+
 }
 
 
