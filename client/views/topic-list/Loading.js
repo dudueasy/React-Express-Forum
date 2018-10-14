@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import {CircularProgress, Paper} from '@material-ui/core';
-import {withStyles} from '@material-ui/core/styles'
+import {WithStyles} from '@material-ui/core/styles'
 
 
 const styles = theme => ({
@@ -17,7 +17,7 @@ const styles = theme => ({
   },
 })
 
-export default withStyles(styles)(({classes}) => (
+export default WithStyles(styles)(({classes}) => (
   <div className={classes.root}>
     <CircularProgress color="primary" size={100} thickness={5}/>
   </div>

@@ -23,15 +23,16 @@ const style = theme => ({
   }
 })
 
+@WithStyles(style)
 @inject(store => ({
     appState: store.appState,
     topicStore: store.topicStore
   }
 ))
 @observer
-@WithStyles(style)
 export default class TopicList extends Component {
   componentDidMount() {
+    console.log('component Did Mount')
     console.log(this.getTab)
     this.props.topicStore.fetchTopicListData(this.getTab)
   }
@@ -43,6 +44,8 @@ export default class TopicList extends Component {
   render() {
     const {topicStore, classes} = this.props
     const {topicStoreList} = topicStore
+    console.log('topicStoreList:', topicStoreList)
+    // this.props.topicStore.fetchTopicListData(this.getTab)
 
     return (
       <Fragment>

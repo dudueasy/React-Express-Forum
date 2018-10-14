@@ -6,10 +6,18 @@ import PropTypes from 'prop-types'
 import {Helmet} from 'react-helmet'
 import queryString from 'query-string'
 
+
+import {AppState, TopicStore} from '../../store/store'
 import AppStateClass from '../../store/app-state'
 import {tabs} from '../../util/variable-difine'
 
-@inject('appState') @observer
+
+@inject(store => ({
+    appState: store.appState,
+    topicStore: store.topicStore
+  }
+))
+@observer
 export default class TopicList extends React.Component {
 
 
@@ -24,6 +32,7 @@ export default class TopicList extends React.Component {
       pathname: this.props.location.pathname,
       search: `?tab=${tabValue}`
     })
+    this.props.topicStore.fetchTopicListData(tabValue)
   }
 
 
@@ -65,7 +74,9 @@ export default class TopicList extends React.Component {
 }
 
 
-TopicList.propTypes = {
+TopicList
+  .propTypes = {
+  topicStore: PropTypes.object.isRequired, // eslint-disable-line
   appState: PropTypes.instanceOf(AppStateClass),
   history: PropTypes.object.isRequired, // eslint-disable-line
   location: PropTypes.object.isRequired, // eslint-disable-line

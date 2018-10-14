@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {withStyles, withTheme} from '@material-ui/core/styles';
+import {WithStyles, withTheme} from '@material-ui/core/styles';
 import {
   Grid,
   AppBar,
@@ -33,7 +33,7 @@ const styles = {
 };
 
 @withTheme()
-@withStyles(styles)
+@WithStyles(styles)
 class TopBar extends Component {
   handleHomeClick = () => {
     console.log('home icon is clicked')

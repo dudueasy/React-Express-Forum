@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import {Home} from '@material-ui/icons'
-import {withStyles} from '@material-ui/core/styles'
+import {WithStyles} from '@material-ui/core/styles'
 
 
 const styles = theme => ({
@@ -72,4 +72,4 @@ ListItemContainer.propTypes = {
   topicData: PropTypes.object.isRequired, //eslint-disable-line
 };
 
-export default withStyles(styles)(ListItemContainer)
+export default WithStyles(styles)(ListItemContainer)

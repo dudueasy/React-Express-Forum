@@ -2,6 +2,7 @@ import {
   observable,
   computed,
   action,
+  reaction,
   extendObservable
 } from 'mobx'
 
@@ -29,6 +30,7 @@ class TopicStore {
   @observable syncing
 
   @observable topicDataList
+
 
   constructor(syncing = false, topicDataList = []) {
     this.syncing = syncing
@@ -64,6 +66,7 @@ class TopicStore {
     console.log('syncing: ', this.syncing)
   }
 
+
   // get topicListData and update topicStoreList
   @action
   fetchTopicListData(currentTab) {
@@ -90,6 +93,14 @@ class TopicStore {
       console.log(err)
     })
   }
+
+  // xxx = reaction(
+  //   () => (
+  //     this.currentTab
+  //   ), (tab) => {
+  //     this.fetchTopicListData()
+  //   }
+  // )
 }
 
 
