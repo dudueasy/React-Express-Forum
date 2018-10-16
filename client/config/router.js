@@ -12,7 +12,7 @@ import TestApi from '../views/test/api.test'
 
 export default () => [
   <Route path="/" render={() => <Redirect to="/list"/>} key="first-route" exact/>,
-  <Route path="/list" component={TopicList} key="second-route"/>,
-  <Route path="/detail" component={TopicDetail} key="third-route"/>,
+  <Route path="/list/:tab?" component={TopicList} key="second-route"/>,
+  <Route path="/detail/:id" component={TopicDetail} key="third-route"/>,
   <Route path="/test" component={TestApi} key="test"/>,
 ]
