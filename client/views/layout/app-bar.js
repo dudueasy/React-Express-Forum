@@ -10,9 +10,10 @@ import {
   Button,
 } from '@material-ui/core';
 
-import {Home} from '@material-ui/icons';
+import {Home, Edit} from '@material-ui/icons';
+import {Link} from 'react-router-dom'
 
-const styles = {
+const styles = theme => ({
   AppBar: {
     height: '56px'
   },
@@ -26,11 +27,21 @@ const styles = {
   Typography: {
     flexGrow: 1,
   },
-  HomeIcon: {
-    marginLeft: -24
+  Link: {
+    color: 'inherit',
+    '&:hover': {
+      color: 'inherit',
+    }
   },
-
-};
+  HomeIcon: {
+    marginRight: 12
+  },
+  button: {
+    margin: theme.spacing.unit,
+    background: 'none',
+    boxShadow: 'none',
+  },
+})
 
 @withTheme()
 @withStyles(styles)
@@ -55,8 +66,10 @@ class TopBar extends Component {
       <Grid container xs={12}>
         <AppBar position="fixed" color="inherit" className={classes.AppBar}>
           <Toolbar className={classes.ToolBar}>
-            <IconButton size="small" color="inherit" aria-label="Menu">
-              <Home className={classes.HomeIcon} onClick={this.handleHomeClick}/>
+            <IconButton className={classes.HomeIcon} size="small" color="inherit">
+              <Link to='/' className={classes.Link}>
+                <Home onClick={this.handleHomeClick}/>
+              </Link>
             </IconButton>
             <Typography
               className={classes.Typography}
@@ -65,8 +78,12 @@ class TopBar extends Component {
             >
               NodeUs
             </Typography>
-            <Button onClick={this.handleNewTopicClick} raised color="primary">
-              New Topic
+            <Button
+              variant="contained"
+              mini
+              className={classes.button}
+            >
+              <Edit mini/>
             </Button>
             <Button onClick={this.handleLoginClick}>
               Login
@@ -81,6 +98,7 @@ class TopBar extends Component {
 
 
 TopBar.propTypes = {
+  history: PropTypes.object.isRequired, //eslint-disable-line
   classes: PropTypes.object.isRequired, //eslint-disable-line
   theme: PropTypes.object.isRequired, //eslint-disable-line
 };
