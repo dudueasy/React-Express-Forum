@@ -25,7 +25,9 @@ express-session
 
 ## build & start
 # start webpack-dev-server
+devServer is required for data fetching
 ~~~
+npm run dev:server
 npm run dev:client
 ~~~
 
