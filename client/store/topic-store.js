@@ -91,16 +91,21 @@ class TopicStore {
 
   // toggle syncing
   @action
-  toggleSyncing() {
-    this.syncing = !this.syncing
+  onSyncing() {
+    this.syncing = true
     console.log('syncing: ', this.syncing)
   }
 
+  @action
+  offSyncing() {
+    this.syncing = false
+    console.log('syncing: ', this.syncing)
+  }
 
   // get topicListData and update topicStoreList
   fetchTopicListData(currentTab) {
     if (currentTab) {
-      this.toggleSyncing()
+      this.onSyncing()
 
       get('/topics', {mdrender: false, tab: currentTab})
         .then((response) => {
@@ -111,19 +116,19 @@ class TopicStore {
           } else {
             Promise.reject(new Error('something wrong during request'))
           }
-
-          this.syncing = false
+          this.offSyncing()
         })
         .catch((err) => {
-          this.syncing = false
+          this.offSyncing()
           console.log(err)
         })
+
     }
   }
 
   fetchTopicDetail(topicId) {
     if (topicId) {
-      this.toggleSyncing()
+      this.onSyncing()
       get(`/topic/${topicId}`, {mdrender: false})
         .then(
           (response) => {
@@ -133,10 +138,14 @@ class TopicStore {
             } else {
               Promise.reject()
             }
+
+            this.offSyncing()
           }
-        ).catch(
-        console.log
-      )
+        )
+        .catch((err) => {
+          this.offSyncing()
+          console.log(err)
+        })
     }
   }
 

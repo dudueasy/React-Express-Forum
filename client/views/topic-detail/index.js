@@ -6,6 +6,8 @@ import {inject, observer} from 'mobx-react'
 import {withStyles} from '@material-ui/core/styles'
 import {Paper, CircularProgress} from '@material-ui/core'
 
+import Loading from '../layout/Loading'
+
 import Container from '../layout/container'
 
 // import {topicDetailStyle} from './styles'
@@ -49,14 +51,15 @@ export default class TopicDetail extends React.Component {
     const {
       classes,
       topicStore: {
-        topicDetail, topicDetail: {content}
+        syncing, topicDetail, topicDetail: {content}
       }
     } = this.props
+    console.log('syncing:', syncing)
 
 
     return (
       <Fragment>
-
+        {syncing ? <Loading/> : null}
         <Helmet>
           <title>This is topic detail page</title>
           <meta name="description" content="this is description"/>

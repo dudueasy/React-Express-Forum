@@ -8,7 +8,7 @@ import {withStyles} from '@material-ui/core/styles'
 import {AppState, TopicStore} from '../../store/store'
 import ListItemContainer from './list-item-container/index'
 import TopicTabs from './topic-tabs'
-import Loading from './Loading'
+import Loading from '../layout/Loading'
 import getTopicTab from '../../util/getTopicTab'
 
 
