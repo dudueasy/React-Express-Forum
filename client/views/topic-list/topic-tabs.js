@@ -4,14 +4,15 @@ import {action} from 'mobx'
 import {observer, inject} from 'mobx-react'
 import PropTypes from 'prop-types'
 import {Helmet} from 'react-helmet'
-// import queryString from 'query-string'
-
-import getTopicTab from '../../util/getTopicTab'
+import queryString from 'query-string'
+import {Redirect} from 'react-router-dom'
 
 
 import {AppState, TopicStore} from '../../store/store'
 import AppStateClass from '../../store/app-state'
 import {tabMapping} from '../../util/variable-difine'
+
+import getTopicTab from '../../util/getTopicTab'
 
 
 @inject(store => ({
@@ -21,20 +22,22 @@ import {tabMapping} from '../../util/variable-difine'
 ))
 @observer
 export default class TopicList extends React.Component {
+  constructor(props) {
+    super(props)
+    this.props.topicStore.updateTopicTab(this.getTab)
+  }
+
 
   get getTab() {
-    return getTopicTab(this.props.location)
+    return getTopicTab(this.props.match)
   }
 
   handleTabChange = (event, tabValue) => {
     console.log('currentTabValue: ', tabValue)
     console.log('this.props.history:', this.props)
     this.props.history.push({
-      pathname: this.props.location.pathname,
-      search: `?tab=${tabValue}`
+      pathname: `/list/${tabValue}`
     })
-
-    this.props.topicStore.updateTopicTab(tabValue)
   }
 
 

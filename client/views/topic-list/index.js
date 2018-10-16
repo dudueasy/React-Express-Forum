@@ -31,6 +31,12 @@ const style = theme => ({
 ))
 @observer
 export default class TopicList extends Component {
+  constructor(props) {
+    super(props)
+    console.log('this.getTab:', this.getTab)
+    this.props.topicStore.updateTopicTab(this.getTab)
+  }
+
 
   componentDidMount() {
     console.log('component Did Mount')
@@ -38,12 +44,10 @@ export default class TopicList extends Component {
   }
 
   get getTab() {
-    return getTopicTab(this.props.location)
+    return getTopicTab(this.props.match)
   }
 
   handleListItemClick = (topicData) => {
-    console.log('topicData:', topicData)
-    console.log('topicData.id:', topicData.id)
     this.props.history.push(`/detail/${topicData.id}`)
   }
 
@@ -52,7 +56,6 @@ export default class TopicList extends Component {
     const {topicStore, classes} = this.props
     const {topicStoreList} = topicStore
     console.log('topicStoreList:', topicStoreList)
-    // this.props.topicStore.fetchTopicListData(this.getTab)
 
     return (
       <Fragment>
@@ -77,7 +80,9 @@ export default class TopicList extends Component {
   }
 }
 
-TopicList.wrappedComponent.propTypes = {
+TopicList
+  .wrappedComponent
+  .propTypes = {
   classes: PropTypes.object.isRequired,  // eslint-disable-line
   appState: PropTypes.instanceOf(AppState), // eslint-disable-line
   topicStore: PropTypes.instanceOf(TopicStore), // eslint-disable-line
