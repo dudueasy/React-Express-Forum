@@ -34,13 +34,22 @@ class TopicStore {
 
   @observable currentTopicTab
 
+  @observable topicDetail
 
-  constructor({syncing = false, topicDataList = [], currentTab = ''}) {
+
+  constructor({
+                syncing = false,
+                topicDataList = [],
+                currentTab = '',
+                topicDetail = {}
+              }) {
+
     this.syncing = syncing
 
     // convert topics data into Mobx Topic observable object
     this.topicDataList = topicDataList
     this.currentTopicTab = currentTab
+    this.topicDetail = topicDetail
   }
 
   // topicStoreList is a container for Topic instances
@@ -51,7 +60,9 @@ class TopicStore {
     )
   }
 
-  tellTab = autorun(()=>{console.log(this.currentTopicTab)})
+  tellTab = autorun(() => {
+    console.log(this.currentTopicTab)
+  })
 
   // push a new data item to topicDataList
   @action
@@ -66,9 +77,16 @@ class TopicStore {
   }
 
   @action
-  updateTopicTab(newTab) {
-    console.log('topic tab is updated')
+  updateTopicTab(newTab) { //eslint-disable-line
+    console.log(`topic tab is updated with ${newTab}`)
     this.currentTopicTab = newTab
+  }
+
+  @action
+  updateTopicDetail(topicDetail) {
+    console.log('topicDetail is fetched')
+    console.log('topicDetail:', topicDetail)
+    this.topicDetail = topicDetail
   }
 
   // toggle syncing
@@ -81,26 +99,45 @@ class TopicStore {
 
   // get topicListData and update topicStoreList
   fetchTopicListData(currentTab) {
-    return new Promise((resolve, reject) => {
+    if (currentTab) {
       this.toggleSyncing()
 
-      currentTab = currentTab || 'all'
       get('/topics', {mdrender: false, tab: currentTab})
         .then((response) => {
           if (response.success) {
+            console.log('response.data:', response.data)
             this.updateTopicDataList(response.data)
-            console.log('topicDataList:', this.topicDataList)
-            resolve()
+            Promise.resolve()
           } else {
-            reject(new Error('something wrong during request'))
+            Promise.reject(new Error('something wrong during request'))
           }
 
           this.syncing = false
         })
-    }).catch((err) => {
-      this.syncing = false
-      console.log(err)
-    })
+        .catch((err) => {
+          this.syncing = false
+          console.log(err)
+        })
+    }
+  }
+
+  fetchTopicDetail(topicId) {
+    if (topicId) {
+      this.toggleSyncing()
+      get(`/topic/${topicId}`, {mdrender: false})
+        .then(
+          (response) => {
+            if (response.success) {
+              this.updateTopicDetail(response.data)
+              Promise.resolve()
+            } else {
+              Promise.reject()
+            }
+          }
+        ).catch(
+        console.log
+      )
+    }
   }
 
   reactToTab = reaction(
@@ -113,4 +150,6 @@ class TopicStore {
 }
 
 
-export {Topic, TopicStore}
+export {
+  Topic, TopicStore
+}
