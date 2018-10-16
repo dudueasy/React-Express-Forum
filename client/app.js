@@ -26,7 +26,7 @@ delete window.__INITIAL_STATE__
 // create Initial State
 const appState = new AppState(initialState.appState)
 // const topicStore = new TopicStore(initialState.topicStore)
-const topicStore = new TopicStore({currentTab: 'dev'})
+const topicStore = new TopicStore({})
 
 
 const render = (Component) => {

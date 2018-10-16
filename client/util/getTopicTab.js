@@ -1,5 +1,6 @@
 import queryString from 'query-string'
 
-export default (location) => {
-  return queryString.parse(location.search).tab
+export default (match) => {
+  console.log('matchobj:', match)
+  return match.params.tab || 'all'
 }
