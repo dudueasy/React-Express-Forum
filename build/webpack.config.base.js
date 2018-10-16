@@ -4,15 +4,15 @@ module.exports = {
   module: {
     rules: [
       // 使用 eslint-loader 进行 webpack 编译前代码校验
-      {
-        enforce: "pre",
-        test: /\.(js|jsx)$/,
-        use: 'eslint-loader',
-        exclude: [
-          path.join(__dirname, '../node_modules')
-        ]
-      }
-      ,
+      // { enforce: "pre",
+      //   test: /\.(js|jsx)$/,
+      //   use: 'eslint-loader',
+      //   exclude: [
+      //     path.join(__dirname, '../node_modules')
+      //   ]
+      // }
+      // ,
+
       // 定义编译 jsx 文件使用的loader(babel-loader)
       {
         test: /\.jsx$/,
@@ -24,7 +24,7 @@ module.exports = {
         use: 'babel-loader',
         // 排除 node_modules 目录
         exclude: [
-          path.join(__dirname, '../node_modules')
+          'node_modules/'
         ]
       }
     ],

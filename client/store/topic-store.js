@@ -35,7 +35,7 @@ class TopicStore {
   @observable currentTopicTab
 
 
-  constructor(syncing = false, topicDataList = [], currentTab = '') {
+  constructor({syncing = false, topicDataList = [], currentTab = ''}) {
     this.syncing = syncing
 
     // convert topics data into Mobx Topic observable object
@@ -50,6 +50,8 @@ class TopicStore {
       topicData => new Topic(createTopicData(topicData))
     )
   }
+
+  tellTab = autorun(()=>{console.log(this.currentTopicTab)})
 
   // push a new data item to topicDataList
   @action

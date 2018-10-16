@@ -3,13 +3,13 @@ import {observer, inject} from 'mobx-react'
 import {computed} from 'mobx'
 import PropTypes from 'prop-types'
 import List from '@material-ui/core/List';
-import {WithStyles} from '@material-ui/core/styles'
-import queryString from 'query-string'
+import {withStyles} from '@material-ui/core/styles'
 
 import {AppState, TopicStore} from '../../store/store'
 import ListItemContainer from './list-item-container/index'
 import TopicTabs from './topic-tabs'
 import Loading from './Loading'
+import getTopicTab from '../../util/getTopicTab'
 
 
 const style = theme => ({
@@ -23,7 +23,7 @@ const style = theme => ({
   }
 })
 
-@WithStyles(style)
+@withStyles(style)
 @inject(store => ({
     appState: store.appState,
     topicStore: store.topicStore
@@ -38,8 +38,15 @@ export default class TopicList extends Component {
   }
 
   get getTab() {
-    return queryString.parse(this.props.location.search).tab
+    return getTopicTab(this.props.location)
   }
+
+  handleListItemClick = (topicData) => {
+    console.log('topicData:', topicData)
+    console.log('topicData.id:', topicData.id)
+    this.props.history.push(`/detail/${topicData.id}`)
+  }
+
 
   render() {
     const {topicStore, classes} = this.props
@@ -55,10 +62,10 @@ export default class TopicList extends Component {
             return (
               < ListItemContainer
                 // key={topicData.id}
-                onListItemClick={() => {
-                  console.log('listItemContainer  onListItemClick')
-                }}
                 topicData={topicData}
+                onListItemClick={() => {
+                  this.handleListItemClick(topicData)
+                }}
               />
             )
           })
@@ -75,5 +82,6 @@ TopicList.wrappedComponent.propTypes = {
   appState: PropTypes.instanceOf(AppState), // eslint-disable-line
   topicStore: PropTypes.instanceOf(TopicStore), // eslint-disable-line
   location: PropTypes.object.isRequired,  // eslint-disable-line
-  match: PropTypes.object.isRequired  // eslint-disable-line
+  match: PropTypes.object.isRequired,  // eslint-disable-line
+  history: PropTypes.object.isRequired  // eslint-disable-line
 }

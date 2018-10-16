@@ -4,12 +4,14 @@ import {action} from 'mobx'
 import {observer, inject} from 'mobx-react'
 import PropTypes from 'prop-types'
 import {Helmet} from 'react-helmet'
-import queryString from 'query-string'
+// import queryString from 'query-string'
+
+import getTopicTab from '../../util/getTopicTab'
 
 
 import {AppState, TopicStore} from '../../store/store'
 import AppStateClass from '../../store/app-state'
-import {tabs} from '../../util/variable-difine'
+import {tabMapping} from '../../util/variable-difine'
 
 
 @inject(store => ({
@@ -21,7 +23,7 @@ import {tabs} from '../../util/variable-difine'
 export default class TopicList extends React.Component {
 
   get getTab() {
-    return queryString.parse(this.props.location.search).tab
+    return getTopicTab(this.props.location)
   }
 
   handleTabChange = (event, tabValue) => {
@@ -62,8 +64,8 @@ export default class TopicList extends React.Component {
           value={this.getTab}
           onChange={this.handleTabChange}
         >
-          {Object.keys(tabs).map(
-            key => (<Tab label={tabs[key]} value={key} key={key}/>
+          {Object.keys(tabMapping).map(
+            key => (<Tab label={tabMapping[key]} value={key} key={key}/>
             )
           )}
 

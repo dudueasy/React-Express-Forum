@@ -9,7 +9,8 @@ import {
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import {Home} from '@material-ui/icons'
-import {WithStyles} from '@material-ui/core/styles'
+import {withStyles} from '@material-ui/core/styles'
+import {tabMapping} from '../../../util/variable-difine'
 
 
 const styles = theme => ({
@@ -17,7 +18,16 @@ const styles = theme => ({
     background: theme.palette.Secondary,
     color: 'white',
     padding: '0 5px',
-    borderRadius: '2px'
+    borderRadius: '2px',
+    fontSize: '8px'
+  },
+
+  topTab: {
+    background: '#ff0053cc',
+    color: 'white',
+    padding: '0 5px',
+    borderRadius: '2px',
+    fontSize: '8px'
   },
   primary: {
     'white-space ': 'nowrap',
@@ -42,7 +52,9 @@ const ListItemContainer = ({classes, onListItemClick, topicData}) => (
 
       primary={(
         <div className={classes.primary}>
-          <span className={classes.tab}>{topicData.tab}</span>
+          <span className={topicData.top ? classes.topTab : classes.tab}>
+            {topicData.top ? '置顶' : tabMapping[topicData.tab]}
+          </span>
           <span> {topicData.title}</span>
         </div>
       )}
@@ -72,4 +84,4 @@ ListItemContainer.propTypes = {
   topicData: PropTypes.object.isRequired, //eslint-disable-line
 };
 
-export default WithStyles(styles)(ListItemContainer)
+export default withStyles(styles)(ListItemContainer)

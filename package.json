@@ -10,7 +10,7 @@
     "start": "cross-env NODE_ENV=production node server/server.js",
     "clear_dist": "rimraf dist",
     "build": "npm run clear_dist && npm run build:client && npm run build:server",
-    "lint": "eslint --ext .js --ext .jsx client/",
+    "lint": "eslint --ext .js --ext .jsx client/util/",
     "precommit": "npm run lint"
   },
   "sideEffects": false,
@@ -25,6 +25,8 @@
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "history": "^4.7.2",
+    "marked": "^0.5.1",
     "mobx": "^5.0.4",
     "mobx-react": "^5.2.5",
     "prop-types": "^15.6.2",

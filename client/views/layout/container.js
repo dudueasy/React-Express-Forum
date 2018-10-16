@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Paper} from '@material-ui/core'
-import {WithStyles} from '@material-ui/core/styles'
+import {withStyles} from '@material-ui/core/styles'
 
 import PropTypes from 'prop-types';
 
@@ -27,4 +27,4 @@ Container.propTypes = {
   ])
 }
 
-export default WithStyles(styles)(Container)
+export default withStyles(styles)(Container)

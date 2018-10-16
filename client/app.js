@@ -11,6 +11,7 @@ import App from './views/App'
 import theme from './views/MuiTheme'
 import {AppState, TopicStore} from './store/store'
 
+
 const root = document.getElementById('root')
 
 
@@ -24,7 +25,8 @@ delete window.__INITIAL_STATE__
 
 // create Initial State
 const appState = new AppState(initialState.appState)
-const topicStore = new TopicStore(initialState.topicStore)
+// const topicStore = new TopicStore(initialState.topicStore)
+const topicStore = new TopicStore({currentTab: 'dev'})
 
 
 const render = (Component) => {

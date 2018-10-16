@@ -1,7 +1,7 @@
 // this file provide stores schema for store objects.
 // use object.assign to initialize store object
 
-export const tabs = {
+export const tabMapping = {
   all: '全部',
   share: '分享',
   job: '工作',
@@ -44,5 +44,5 @@ export const replySchema = {
 }
 
 export default {
-  tabs,
+  tabMapping,
 }
