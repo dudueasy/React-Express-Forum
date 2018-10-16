@@ -40,7 +40,7 @@ npm run build
 ~~~
 
 
-# App Structure
-![App Structure](./React-Forum.png)
+# Overall Structure
+![Overall Structure](./React-Forum.png)
 
 
