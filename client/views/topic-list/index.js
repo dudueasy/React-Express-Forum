@@ -35,6 +35,7 @@ export default class TopicList extends Component {
   constructor(props) {
     super(props)
     console.log('this.getTab:', this.getTab)
+    this.props.topicStore.updateTopicDetail('')
     this.props.topicStore.updateTopicTab(this.getTab)
   }
 
@@ -62,7 +63,7 @@ export default class TopicList extends Component {
       <Fragment>
         <Helmet>
           <title>Node & Us | {this.getTab}</title>
-          <meta name="description" content="this is description"/>
+          <meta name="description" content="topic list page"/>
         </Helmet>
         <TopicTabs {...this.props} key={this.getTab}/>
         <List className={classes.contentArea}>
@@ -85,8 +86,7 @@ export default class TopicList extends Component {
   }
 }
 
-TopicList
-  .wrappedComponent
+TopicList.wrappedComponent
   .propTypes = {
   classes: PropTypes.object.isRequired,  // eslint-disable-line
   appState: PropTypes.instanceOf(AppState), // eslint-disable-line
