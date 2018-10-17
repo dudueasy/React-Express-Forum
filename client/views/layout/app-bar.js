@@ -7,8 +7,10 @@ import {
   Toolbar,
   Typography,
   IconButton,
+  Hidden,
   Button,
 } from '@material-ui/core';
+import {inject, observer} from 'mobx-react'
 
 import {Home, Edit} from '@material-ui/icons';
 import {Link} from 'react-router-dom'
@@ -24,41 +26,60 @@ const styles = theme => ({
     '@media (min-width:600px)':
       {height: 56, minHeight: 56}
   },
-  Link: {
-    color: 'inherit',
-    '&:hover': {
-      color: 'inherit',
-    }
-  },
   HomeIconWrapper: {
     flexGrow: 1,
     marginRight: 12
   },
-  HomeLink: {
+  Link: {
     color: 'inherit',
     textDecoration: 'none',
+    '&:hover': {
+      color: 'inherit',
+    }
   },
   siteName: {
+    display: 'inline',
     fontSize: 22,
     fontWeight: 'lighter',
     '&:hover': {
       background: 'none',
     }
   },
+  currentTab: {
+    marginLeft: 12,
+    paddingLeft: 12,
+    borderLeft: '1px solid grey',
+    display: 'inline',
+    fontSize: 20,
+    fontWeight: 'lighter',
+    '&:hover':
+      {background: 'none'}
+  },
   button: {
     margin: theme.spacing.unit * 1,
-    background: 'none',
-    boxShadow: 'none',
-    [theme.breakpoints.down('xs')]: {
-      margin: 0,
-      paddingLeft: 0,
-      paddingRight: 0,
-    },
-  },
+    background:
+      'none',
+    boxShadow:
+      'none',
+    [theme.breakpoints.down('xs')]:
+      {
+        margin: 0,
+        paddingLeft:
+          0,
+        paddingRight:
+          0,
+      }
+    ,
+  }
+  ,
 })
 
+@inject(stores => ({
+  topicStore: stores.topicStore
+}))
 @withTheme()
 @withStyles(styles)
+@observer
 class TopBar extends Component {
   handleHomeClick = () => {
     console.log('home icon is clicked')
@@ -73,19 +94,40 @@ class TopBar extends Component {
   }
 
   render() {
-    const {classes, theme} = this.props;
-    // console.log('theme object:', theme)
+    const {
+      topicStore,
+      topicStore: {topicDetail},
+      classes,
+      theme
+    } = this.props;
+
+    console.log('topicDetail :', topicDetail)
 
     return (
       <Grid container xs={12}>
         <AppBar position="fixed" color="inherit" className={classes.AppBar}>
           <Toolbar className={classes.ToolBar}>
             <span className={classes.HomeIconWrapper}>
-              <a href='/' className={classes.HomeLink}>
-                <Typography className={classes.siteName}>
+              <Link to='/' className={classes.Link}>
+                <Typography component='span' className={classes.siteName}>
                   Node & Us
                 </Typography>
-              </a>
+              </Link>
+              {topicDetail.tab
+                ? (
+                  <Hidden xsDown>
+                    <Link
+                      to={`/list/${topicDetail.tab}`}
+                      className={classes.Link}
+                    >
+                      <Typography className={classes.currentTab}>
+                        {topicDetail.tab}
+                      </Typography>
+                    </Link>
+                  </Hidden>
+                )
+                : null
+              }
             </span>
             <Button
               variant="contained"
@@ -100,7 +142,7 @@ class TopBar extends Component {
               className={classes.button}
               onClick={this.handleLoginClick}
             >
-              <span style={{fontWeight:'lighter'}}>Login</span>
+              <span style={{fontWeight: 'lighter'}}>Login</span>
             </Button>
 
           </Toolbar>
@@ -111,7 +153,8 @@ class TopBar extends Component {
 }
 
 
-TopBar.propTypes = {
+TopBar.wrappedComponent.propTypes = {
+  topicStore: PropTypes.object.isRequired, //eslint-disable-line
   history: PropTypes.object.isRequired, //eslint-disable-line
   classes: PropTypes.object.isRequired, //eslint-disable-line
   theme: PropTypes.object.isRequired, //eslint-disable-line
