@@ -17,7 +17,7 @@
   "author": "Apolo Du",
   "license": "ISC",
   "dependencies": {
-    "@material-ui/core": "^3.0.3",
+    "@material-ui/core": "^3.2.2",
     "@material-ui/icons": "^3.0.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
