@@ -21,11 +21,8 @@ const styles = theme => ({
     height: 56,
     '@media (min-width:0px) and (orientation: landscape)':
       {height: 56, minHeight: 56},
-    '@media (min-width:600px) and ':
+    '@media (min-width:600px)':
       {height: 56, minHeight: 56}
-  },
-  Typography: {
-    flexGrow: 1,
   },
   Link: {
     color: 'inherit',
@@ -33,13 +30,30 @@ const styles = theme => ({
       color: 'inherit',
     }
   },
-  HomeIcon: {
+  HomeIconWrapper: {
+    flexGrow: 1,
     marginRight: 12
   },
+  HomeLink: {
+    color: 'inherit',
+    textDecoration: 'none',
+  },
+  siteName: {
+    fontSize: 22,
+    fontWeight: 'lighter',
+    '&:hover': {
+      background: 'none',
+    }
+  },
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing.unit * 1,
     background: 'none',
     boxShadow: 'none',
+    [theme.breakpoints.down('xs')]: {
+      margin: 0,
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
   },
 })
 
@@ -66,18 +80,13 @@ class TopBar extends Component {
       <Grid container xs={12}>
         <AppBar position="fixed" color="inherit" className={classes.AppBar}>
           <Toolbar className={classes.ToolBar}>
-            <IconButton className={classes.HomeIcon} size="small" color="inherit">
-              <Link to='/' className={classes.Link}>
-                <Home onClick={this.handleHomeClick}/>
-              </Link>
-            </IconButton>
-            <Typography
-              className={classes.Typography}
-              variant="title"
-              color="inherit"
-            >
-              NodeUs
-            </Typography>
+            <span className={classes.HomeIconWrapper}>
+              <a href='/' className={classes.HomeLink}>
+                <Typography className={classes.siteName}>
+                  Node & Us
+                </Typography>
+              </a>
+            </span>
             <Button
               variant="contained"
               mini
@@ -85,8 +94,13 @@ class TopBar extends Component {
             >
               <Edit mini/>
             </Button>
-            <Button onClick={this.handleLoginClick}>
-              Login
+            <Button
+              variant='outlined'
+              color='default'
+              className={classes.button}
+              onClick={this.handleLoginClick}
+            >
+              <span style={{fontWeight:'lighter'}}>Login</span>
             </Button>
 
           </Toolbar>

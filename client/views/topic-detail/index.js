@@ -34,16 +34,12 @@ export default class TopicDetail extends React.Component {
     this.props.topicStore.fetchTopicDetail(this.getTopicId)
   }
 
-  componentDidMount() {
-    // do something here
-  }
 
   get getTopicId() {
     return this.props.match.params.id
   }
 
   render() {
-
     const topicId = this.getTopicId
     console.log('topicId:', topicId)
 

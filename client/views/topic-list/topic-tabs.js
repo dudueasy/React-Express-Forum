@@ -3,7 +3,6 @@ import {Tabs, Tab} from '@material-ui/core'
 import {action} from 'mobx'
 import {observer, inject} from 'mobx-react'
 import PropTypes from 'prop-types'
-import {Helmet} from 'react-helmet'
 import queryString from 'query-string'
 import {Redirect} from 'react-router-dom'
 
@@ -56,11 +55,6 @@ export default class TopicList extends React.Component {
 
     return (
       <Fragment>
-        <Helmet>
-          <title>This is topic list</title>
-          <meta name="description" content="this is description"/>
-        </Helmet>
-
         <Tabs
           scrollable
           scrollButtons="auto"

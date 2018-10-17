@@ -4,6 +4,7 @@ import {computed} from 'mobx'
 import PropTypes from 'prop-types'
 import List from '@material-ui/core/List';
 import {withStyles} from '@material-ui/core/styles'
+import {Helmet} from 'react-helmet'
 
 import {AppState, TopicStore} from '../../store/store'
 import ListItemContainer from './list-item-container/index'
@@ -59,6 +60,10 @@ export default class TopicList extends Component {
 
     return (
       <Fragment>
+        <Helmet>
+          <title>Node & Us | {this.getTab}</title>
+          <meta name="description" content="this is description"/>
+        </Helmet>
         <TopicTabs {...this.props} key={this.getTab}/>
         <List className={classes.contentArea}>
           {topicStoreList.map((topicData, i) => {
