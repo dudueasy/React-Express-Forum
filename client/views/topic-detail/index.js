@@ -4,14 +4,13 @@ import marked from 'marked'
 import {Helmet} from 'react-helmet'
 import {inject, observer} from 'mobx-react'
 import {withStyles} from '@material-ui/core/styles'
-import {Paper, CircularProgress} from '@material-ui/core'
+import {Grid, Divider} from '@material-ui/core'
 
 import Loading from '../layout/Loading'
+import Header from './Header'
+import Content from './Content'
+import Reply from './Reply'
 
-import Container from '../layout/container'
-
-// import {topicDetailStyle} from './styles'
-// import Reply from './reply'
 
 const style = theme => ({
   '@global': {
@@ -19,9 +18,21 @@ const style = theme => ({
       height: '100%'
     }
   },
-  content: {
-    minHeight: '100%'
+  container: {
+    background: '#fafafa'
   }
+  ,
+  upperArea: {
+    background: 'white', paddingTop: 20, paddingBottom: 20
+  },
+  lowerArea: {
+    background: '#fafafa', marginTop: 20
+  },
+  Grid: {
+    flexGrow: 1,
+    alignItem: 'center',
+    justifyContent: 'center'
+  },
 })
 
 @withStyles(style)
@@ -57,16 +68,29 @@ export default class TopicDetail extends React.Component {
       <Fragment>
         {syncing ? <Loading/> : null}
         <Helmet>
-          <title>This is topic detail page</title>
-          <meta name="description" content="this is description"/>
+          <title>Node & Us | {topicDetail.title}</title>
+          <meta name="description" content="topic detail page"/>
         </Helmet>
 
-        <div className={classes.content}>
-          {content
-            ? <div dangerouslySetInnerHTML={{__html: marked(content)}}/>
-            : null
-          }
+        <div className={classes.container}>
+          <div className={classes.upperArea}>
+            <Grid container xs={12} className={classes.Grid}>
+              <Grid item xs={12} sm={8}>
+                <Header/>
+                <Content/>
+              </Grid>
+            </Grid>
+          </div>
+
+          <div className={classes.lowerArea}>
+            <Grid container xs={12} className={classes.Grid}>
+              <Grid item xs={12} sm={8}>
+                <Reply/>
+              </Grid>
+            </Grid>
+          </div>
         </div>
+
       </Fragment>
     )
   }
