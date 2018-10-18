@@ -8,11 +8,11 @@ import {
   Card,
   TextField,
   Button,
-  Divider,
-  SvgIcon
 } from "@material-ui/core"
 import {withStyles} from "@material-ui/core/styles"
 import PropTypes from 'prop-types'
+import {inject, observer} from 'mobx-react'
+import marked from 'marked'
 
 const style = theme => ({
   responseArea: {
@@ -36,10 +36,16 @@ const style = theme => ({
   }
 })
 
+@inject(store => ({
+  topicStore: store.topicStore
+}))
 @withStyles(style)
+@observer
 export default class Reply extends React.Component {
   render() {
-    const {classes, topicReply} = this.props
+
+    const {classes, topicStore} = this.props
+    const {topicReply} = topicStore
     console.log(' topicReply: ', topicReply)
 
     return (
@@ -82,53 +88,34 @@ export default class Reply extends React.Component {
               </Button>
             </div>
           </Card>
-          <Card className={classes.Card}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>A</Avatar>
-              </ListItemAvatar>
+          {topicReply.map(({author: {avatar_url, loginname}, create_at, content}) => (
 
-              <ListItemText
-                primary={<span>username</span>}
-                secondary={<span>createTime</span>}
+            <Card className={classes.Card}>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar src={avatar_url}/>
+                </ListItemAvatar>
+
+                <ListItemText
+                  primary={<span>{loginname}</span>}
+                  secondary={<span>{create_at}</span>}
+                />
+              </ListItem>
+
+              <div
+                className={classes.commentTextContainer}
+                dangerouslySetInnerHTML={{__html: marked(content)}}
               />
-            </ListItem>
+            </Card>
+          ))}
 
-            <div className={classes.commentTextContainer}>
-              <Typography gutterBottom variant="body1">
-                ListItemAvatar The API documentation of the ListItemAvatar React
-                component. Learn more about the properties and the CSS
-                customization points.
-              </Typography>
-            </div>
-          </Card>
-
-          <Card className={classes.Card}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>A</Avatar>
-              </ListItemAvatar>
-
-              <ListItemText
-                primary={<span>username</span>}
-                secondary={<span>createTime</span>}
-              />
-            </ListItem>
-            <div className={classes.commentTextContainer}>
-              <Typography gutterBottom variant="body1">
-                ListItemAvatar The API documentation of the ListItemAvatar React
-                component. Learn more about the properties and the CSS
-                customization points.
-              </Typography>
-            </div>
-          </Card>
         </div>
       </Fragment>
     )
   }
 }
 
-Reply.propTypes = {
+Reply.wrappedComponent.propTypes = {
   classes: PropTypes.object.isRequired,
-  topicReply: PropTypes.object.isRequired
+  topicStore: PropTypes.object.isRequired
 }

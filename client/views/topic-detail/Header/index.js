@@ -7,27 +7,33 @@ import {
   Avatar,
   SvgIcon
 } from "@material-ui/core"
-
 import {withStyles} from "@material-ui/core/styles"
 import PropTypes from 'prop-types'
+import {inject, observer} from 'mobx-react'
 
 const style = theme => ({
   iconArea: {
     position: "absolute",
-    top: 10,
-    right: 20
+    right: 5,
+    top: 0
   },
   SvgIcon: {
     position: "relative",
     top: 5
   },
   replyNumber: {
+    textDecoration: 'none',
     fontWeight: "lighter",
-    fontSize: 10
+    fontSize: 10,
+    color: 'black',
   }
 })
 
+@inject(stores => ({
+  topicStore: stores.topicStore
+}))
 @withStyles(style)
+@observer
 export default class Header extends React.Component {
   handleBookmarkClick = () => {
     console.log("bookmark is clicked")
@@ -38,17 +44,29 @@ export default class Header extends React.Component {
   }
 
   render() {
-    const {classes, topicDetail} = this.props
+    const {classes, topicStore} = this.props
+    const {topicDetail} = topicStore
     const isCollected = true
-    const replyNumber = 20
+    const replyNumber = topicDetail.replies.length
     console.log('topicDetail: ', topicDetail)
 
     return (
       <div style={{position: "relative"}}>
         <Typography variant="h4" gutterBottom>
-          Title of article
+          {topicDetail.title}
         </Typography>
-        <div className={classes.iconArea}>
+
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar src={topicDetail.author.avatar_url}/>
+          </ListItemAvatar>
+
+          <ListItemText
+            primary={<span>{topicDetail.author.loginname}</span>}
+            secondary={<span>{topicDetail.create_at}</span>}
+          />
+
+          <span className={classes.iconArea}>
           {isCollected ? (
             <SvgIcon
               className={classes.SvgIcon}
@@ -70,29 +88,21 @@ export default class Header extends React.Component {
               />
             </SvgIcon>
           )}
-          <SvgIcon
-            className={classes.SvgIcon}
-            onClick={this.handleReplyIconClick}
-          >
+            <a href="#topic-detail-reply">
+            <SvgIcon
+              className={classes.SvgIcon}
+              onClick={this.handleReplyIconClick}
+            >
             <path
               fill="#000000"
               d="M20,2H4A2,2 0 0,0 2,4V22L6,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H6L4,18V4H20"
             />
           </SvgIcon>
-          {replyNumber ? (
-            <span className={classes.replyNumber}>{replyNumber}</span>
-          ) : null}
-        </div>
-
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>A</Avatar>
-          </ListItemAvatar>
-
-          <ListItemText
-            primary={<span>username</span>}
-            secondary={<span>createTime</span>}
-          />
+              {replyNumber ? (
+                <span className={classes.replyNumber}>{replyNumber}</span>
+              ) : null}
+            </a>
+        </span>
         </ListItem>
       </div>
     )
@@ -101,5 +111,5 @@ export default class Header extends React.Component {
 
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
-  topicDetail: PropTypes.object.isRequired,
+  topicStore: PropTypes.object.isRequired,
 }
