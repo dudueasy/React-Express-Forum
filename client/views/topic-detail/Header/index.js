@@ -40,7 +40,8 @@ export default class Header extends React.Component {
   }
 
   handleReplyIconClick = () => {
-    console.log("reply icon is clicked")
+    const replyElement = document.querySelector('#topic-detail-reply')
+    window.scrollTo(0, (replyElement.offsetTop - 80))
   }
 
   render() {
@@ -52,7 +53,7 @@ export default class Header extends React.Component {
 
     return (
       <div style={{position: "relative"}}>
-        <Typography variant="h4" gutterBottom>
+        <Typography component="h1" gutterBottom>
           {topicDetail.title}
         </Typography>
 
@@ -88,7 +89,6 @@ export default class Header extends React.Component {
               />
             </SvgIcon>
           )}
-            <a href="#topic-detail-reply">
             <SvgIcon
               className={classes.SvgIcon}
               onClick={this.handleReplyIconClick}
@@ -98,10 +98,9 @@ export default class Header extends React.Component {
               d="M20,2H4A2,2 0 0,0 2,4V22L6,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H6L4,18V4H20"
             />
           </SvgIcon>
-              {replyNumber ? (
-                <span className={classes.replyNumber}>{replyNumber}</span>
-              ) : null}
-            </a>
+            {replyNumber ? (
+              <span className={classes.replyNumber}>{replyNumber}</span>
+            ) : null}
         </span>
         </ListItem>
       </div>

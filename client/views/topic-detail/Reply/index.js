@@ -47,6 +47,7 @@ export default class Reply extends React.Component {
     const {classes, topicStore} = this.props
     const {topicReply} = topicStore
     console.log(' topicReply: ', topicReply)
+    const loginUser = true
 
     return (
       <Fragment>
@@ -54,40 +55,45 @@ export default class Reply extends React.Component {
           <Typography variant="body">responses</Typography>
         </div>
         <div className={classes.responseArea}>
-          <Card className={classes.Card}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>A</Avatar>
-              </ListItemAvatar>
+          {loginUser
+            ? (
+              <Card className={classes.Card}>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar>A</Avatar>
+                  </ListItemAvatar>
 
-              <ListItemText
-                primary={<span>username</span>}
-                secondary={<span>createTime</span>}
-              />
-            </ListItem>
-            <div
-              className={classes.commentTextContainer}
-              style={{margin: 20, marginTop: 0}}
-            >
-              <TextField
-                id="outlined-textarea"
-                placeholder="请输入评论"
-                fullWidth
-                multiline
-                margin="normal"
-                className={classes.textField}
-                variant="outlined"
-              />
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                disabled
-              >
-                publish
-              </Button>
-            </div>
-          </Card>
+                  <ListItemText
+                    primary={<span>username</span>}
+                    secondary={<span>createTime</span>}
+                  />
+                </ListItem>
+                <div
+                  className={classes.commentTextContainer}
+                  style={{margin: 20, marginTop: 0}}
+                >
+                  <TextField
+                    id="outlined-textarea"
+                    placeholder="请输入评论"
+                    fullWidth
+                    multiline
+                    margin="normal"
+                    className={classes.textField}
+                    variant="outlined"
+                  />
+                  <Button
+                    size="small"
+                    variant="contained"
+                    color="primary"
+                    disabled
+                  >
+                    publish
+                  </Button>
+                </div>
+              </Card>
+            )
+            : null
+          }
           {topicReply.map(({author: {avatar_url, loginname}, create_at, content}) => (
 
             <Card className={classes.Card}>

@@ -14,41 +14,66 @@ import Reply from './Reply'
 
 const style = theme => ({
   '@global': {
-    html: {
+    'html,body,#root': {
       height: '100%',
       fontFamily: "Roboto"
     },
-    p: {
-      fontSize: '15px',
-      lineHeight: '1.7em',
-      overflow: 'auto'
+    h1: {
+      fontSize: '30px !important',
+      [theme.breakpoints.down('xs')]: {
+        fontSize: '20px !important',
+      }
     },
-    a: {
-      textDecoration: 'none',
-      color: '#08c'
+    '.container': {
+      '& h2': {
+        fontSize: 26
+      },
+      '& h3': {
+        margin: '30px 0 15px'
+      },
+      '& p': {
+        fontSize: '15px',
+        lineHeight: '1.7em',
+        overflow: 'auto'
+      },
+      '& a': {
+        textDecoration: 'none',
+        color: '#08c',
+        overflowWrap: 'break-word'
+      },
+      '& img': {
+        maxWidth: '100%'
+      },
+      '& blockquote': {
+        padding: '0 0 0 15px',
+        margin: '0 0 20px',
+        borderLeft: '5px solid #eee',
+      },
+      '& ul': {
+        padding: 0,
+        margin: '0 0 10px 25px'
+      },
+      '& li': {
+        fontSize: 14,
+        lineHeight: 2,
+      },
+      '& pre': {
+        fontSize: 14,
+        borderRadius: 0,
+        padding: '10px 15px',
+        border: 'none',
+        margin: '20px -10px',
+        borderWidth: '1px 0',
+        background: '#f7f7f7',
+        tabSize: 4,
+      },
+      '& code': {
+        color: 'inherit',
+        whiteSpace: 'pre-wrap',
+        backgroundColor: 'transparent',
+        lineHeight: '22px'
+      }
     },
-    img: {
-      maxWidth: '100%'
-    },
-    pre: {
-      fontSize: 14,
-      borderRadius: 0,
-      padding: '10px 15px',
-      border: 'none',
-      margin: '20px -10px',
-      borderWidth: '1px 0',
-      background: '#f7f7f7',
-      tabSize: 4,
-    },
-    code: {
-      color: 'inherit',
-      whiteSpace: 'pre-wrap',
-      backgroundColor: 'transparent',
-      lineHeight: '22px'
-    }
-  },
-  container: {
-    background: '#fafafa'
   },
   upperArea: {
     background: 'white',
@@ -107,10 +132,10 @@ export default class TopicDetail extends React.Component {
                 <meta name="description" content="topic detail page"/>
               </Helmet>
 
-              <div className={classes.container}>
+              <div className='container'>
                 <div className={classes.upperArea}>
                   <Grid container xs={12} className={classes.Grid}>
-                    <Grid item xs={11} sm={8} md={6}>
+                    <Grid item xs={11} sm={8} md={8}>
                       <Header/>
                       <Content/>
                     </Grid>
