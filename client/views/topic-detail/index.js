@@ -20,8 +20,7 @@ const style = theme => ({
   },
   container: {
     background: '#fafafa'
-  }
-  ,
+  },
   upperArea: {
     background: 'white', paddingTop: 20, paddingBottom: 20
   },
@@ -58,7 +57,7 @@ export default class TopicDetail extends React.Component {
     const {
       classes,
       topicStore: {
-        syncing, topicDetail, topicDetail: {content}
+        syncing, topicDetail, topicDetail: {content}, topicReply
       }
     } = this.props
     console.log('syncing:', syncing)
@@ -75,17 +74,17 @@ export default class TopicDetail extends React.Component {
         <div className={classes.container}>
           <div className={classes.upperArea}>
             <Grid container xs={12} className={classes.Grid}>
-              <Grid item xs={12} sm={8}>
-                <Header/>
-                <Content/>
+              <Grid item xs={11} sm={8} md={6}>
+                <Header topicDetail={topicDetail}/>
+                <Content topicDetail={topicDetail}/>
               </Grid>
             </Grid>
           </div>
 
           <div className={classes.lowerArea}>
             <Grid container xs={12} className={classes.Grid}>
-              <Grid item xs={12} sm={8}>
-                <Reply/>
+              <Grid item xs={11} sm={8} md={6}>
+                <Reply topicReply={topicReply}/>
               </Grid>
             </Grid>
           </div>
@@ -97,11 +96,7 @@ export default class TopicDetail extends React.Component {
 }
 
 TopicDetail.wrappedComponent.propTypes = {
-  topicStore: PropTypes.object.isRequired
-}
-
-
-TopicDetail.propTypes = {
+  topicStore: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired, //eslint-disable-line
   location: PropTypes.object.isRequired, //eslint-disable-line
   match: PropTypes.object.isRequired,//eslint-disable-line

@@ -36,12 +36,16 @@ class TopicStore {
 
   @observable topicDetail
 
+  @observable topicReply
+
 
   constructor({
                 syncing = false,
                 topicDataList = [],
                 currentTab = '',
-                topicDetail = {}
+                topicDetail = {},
+                topicReply = []
+
               }) {
 
     this.syncing = syncing
@@ -50,6 +54,8 @@ class TopicStore {
     this.topicDataList = topicDataList
     this.currentTopicTab = currentTab
     this.topicDetail = topicDetail
+    this.topicReply = topicReply
+
   }
 
   // topicStoreList is a container for Topic instances
@@ -87,6 +93,14 @@ class TopicStore {
     console.log('topicDetail is fetched')
     console.log('topicDetail:', topicDetail)
     this.topicDetail = topicDetail
+    this.updateTopicReply(topicDetail.replies)
+  }
+
+  @action
+  updateTopicReply(topicReply) {
+    console.log('topicReply is updated')
+    console.log('topicReply :', topicReply)
+    this.topicReply = topicReply
   }
 
   // toggle syncing

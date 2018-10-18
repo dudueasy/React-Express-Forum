@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React, {Fragment} from "react"
 import {
   Typography,
   ListItem,
@@ -8,9 +8,10 @@ import {
   Card,
   TextField,
   Button,
-  Divider
-} from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+  Divider,
+  SvgIcon
+} from "@material-ui/core"
+import {withStyles} from "@material-ui/core/styles"
 import PropTypes from 'prop-types'
 
 const style = theme => ({
@@ -23,20 +24,29 @@ const style = theme => ({
     marginBottom: 20
   },
   commentTextContainer: {
-    margin: '0 20px 20px 20px'
+    margin: "0 20px 20px 20px"
   },
   textField: {
     marginBottom: 12
+  },
+  responseBubble: {
+    position: "absolute",
+    top: 0,
+    left: 80
   }
 })
 
 @withStyles(style)
 export default class Reply extends React.Component {
   render() {
-    const {classes} = this.props
+    const {classes, topicReply} = this.props
+    console.log(' topicReply: ', topicReply)
+
     return (
       <Fragment>
-        <Typography variant="body2">responses</Typography>
+        <div style={{position: "relative"}}>
+          <Typography variant="body">responses</Typography>
+        </div>
         <div className={classes.responseArea}>
           <Card className={classes.Card}>
             <ListItem>
@@ -62,7 +72,12 @@ export default class Reply extends React.Component {
                 className={classes.textField}
                 variant="outlined"
               />
-              <Button mini variant="contained" color="primary" disabled>
+              <Button
+                size="small"
+                variant="contained"
+                color="primary"
+                disabled
+              >
                 publish
               </Button>
             </div>
@@ -114,5 +129,6 @@ export default class Reply extends React.Component {
 }
 
 Reply.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  topicReply: PropTypes.object.isRequired
 }
