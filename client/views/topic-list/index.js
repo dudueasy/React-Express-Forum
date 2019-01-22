@@ -12,7 +12,6 @@ import TopicTabs from './topic-tabs'
 import Loading from '../layout/Loading'
 import getTopicTab from '../../util/getTopicTab'
 
-
 const style = theme => ({
   '@global': {
     'html,body,#root': {

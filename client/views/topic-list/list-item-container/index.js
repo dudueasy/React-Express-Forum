@@ -11,6 +11,7 @@ import PropTypes from 'prop-types'
 import {Home} from '@material-ui/icons'
 import {withStyles} from '@material-ui/core/styles'
 import {tabMapping} from '../../../util/variable-difine'
+import datetimeFormatter from '../../../util/datetimeFormatter'
 
 
 const styles = theme => ({
@@ -69,7 +70,7 @@ const ListItemContainer = ({classes, onListItemClick, topicData}) => (
           </span>
           <span>/{topicData.visit_count}</span>
           <span>
-            &nbsp;创建时间: {topicData.create_at}
+            &nbsp;创建时间: {datetimeFormatter(topicData.create_at)}
           </span>
         </div>
       )
