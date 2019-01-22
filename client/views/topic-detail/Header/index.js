@@ -10,6 +10,7 @@ import {
 import {withStyles} from "@material-ui/core/styles"
 import PropTypes from 'prop-types'
 import {inject, observer} from 'mobx-react'
+import datetimeFormatter from '../../../util/datetimeFormatter'
 
 const style = theme => ({
   iconArea: {
@@ -64,7 +65,7 @@ export default class Header extends React.Component {
 
           <ListItemText
             primary={<span>{topicDetail.author.loginname}</span>}
-            secondary={<span>{topicDetail.create_at}</span>}
+            secondary={<span>{datetimeFormatter(topicDetail.create_at)}</span>}
           />
 
           <span className={classes.iconArea}>

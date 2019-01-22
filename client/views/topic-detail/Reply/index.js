@@ -13,6 +13,7 @@ import {withStyles} from "@material-ui/core/styles"
 import PropTypes from 'prop-types'
 import {inject, observer} from 'mobx-react'
 import marked from 'marked'
+import datetimeFormatter from '../../../util/datetimeFormatter'
 
 const style = theme => ({
   responseArea: {
@@ -104,7 +105,7 @@ export default class Reply extends React.Component {
 
                 <ListItemText
                   primary={<span>{loginname}</span>}
-                  secondary={<span>{create_at}</span>}
+                  secondary={<span>{datetimeFormatter(create_at)}</span>}
                 />
               </ListItem>
 
