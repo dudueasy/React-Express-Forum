@@ -13,8 +13,6 @@ export default class App extends React.Component {
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
-
-
   }
 
   render() {

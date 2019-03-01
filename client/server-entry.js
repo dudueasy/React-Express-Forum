@@ -1,23 +1,22 @@
 // server-entry
-import React from 'react'
-import {StaticRouter} from 'react-router-dom'
-import {Provider, useStaticRendering} from 'mobx-react'
+import React from 'react';
+import {StaticRouter} from 'react-router-dom';
+import {Provider, useStaticRendering} from 'mobx-react';
 import JssProvider from 'react-jss/lib/JssProvider';
 import {MuiThemeProvider} from '@material-ui/core/styles';
 
-import {createStoreMap} from './store/store'
-import App from './views/App'
-import theme from './views/MuiTheme'
+import App from './views/App';
+import theme from './views/MuiTheme';
 
-useStaticRendering(true)
-require('source-map-support').install()
+useStaticRendering(true);
+require('source-map-support').install();
 
 
 // server-bundle 是一个函数 可以接收 store 作为 provider 传递的数据
 export default function createApp(stores, routerContext, url, MUIConfig = {}) {
   const {
     sheetsRegistry, generateClassName, sheetsManager,
-  } = MUIConfig
+  } = MUIConfig;
 
   // stores = {store: xxx, ...}
   return (
@@ -32,7 +31,5 @@ export default function createApp(stores, routerContext, url, MUIConfig = {}) {
         </JssProvider>
       </StaticRouter>
     </Provider>
-  )
+  );
 }
-
-export {createStoreMap}
