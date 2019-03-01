@@ -7,15 +7,13 @@ import queryString from 'query-string'
 import {Redirect} from 'react-router-dom'
 
 
-import {AppState, TopicStore} from '../../store/store'
-import AppStateClass from '../../store/app-state'
+import {TopicStore} from '../../store/store'
 import {tabMapping} from '../../util/variable-difine'
 
 import getTopicTab from '../../util/getTopicTab'
 
 
 @inject(store => ({
-    appState: store.appState,
     topicStore: store.topicStore
   }
 ))
@@ -40,17 +38,8 @@ export default class TopicList extends React.Component {
   }
 
 
-  asyncBoostrap() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        this.props.appState.count = 3
-        resolve(true)
-      }, 0)
-    })
-  }
 
   render() {
-    const {appState} = this.props
     const {history} = this.props
 
     return (
@@ -76,7 +65,6 @@ export default class TopicList extends React.Component {
 TopicList
   .propTypes = {
   topicStore: PropTypes.object.isRequired, // eslint-disable-line
-  appState: PropTypes.instanceOf(AppStateClass),
   history: PropTypes.object.isRequired, // eslint-disable-line
   location: PropTypes.object.isRequired, // eslint-disable-line
   match: PropTypes.object.isRequired // eslint-disable-line

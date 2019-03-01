@@ -14,7 +14,7 @@ const sheetsManager = new Map();
 
 let MUIConfig = {sheetsRegistry, generateClassName, sheetsManager}
 
-// getStoreStete 的返回值: {appState: {count: xx, name: xx}}
+// getStoreStete 的返回值: { {count: xx, name: xx}}
 const getStoreState = (stores) => {
   return Object.keys(stores).reduce((result, item) => {
     return result[item] = stores[item].toJson()
@@ -27,7 +27,6 @@ module.exports = function serverRender(bundle, template, req, res) {
     const createApp = bundle.default
     const routerContext = {}
 
-    // default stores = {appState: {count: 0, name: 'apolo',msg:`${this.name}:${this.count}`, add:fn, toJson:fn}}
     let stores = createStoreMap()
 
     // serverBundle( store, context_for_staticRouter, url_for_staticRouter)
@@ -47,7 +46,6 @@ module.exports = function serverRender(bundle, template, req, res) {
         return
       }
 
-      // state = {appState: {count:xx, name:xxx}}
       let state = getStoreState(stores)
       const content = ReactDomServer.renderToString(app)
 

@@ -6,7 +6,7 @@ import List from '@material-ui/core/List';
 import {withStyles} from '@material-ui/core/styles'
 import {Helmet} from 'react-helmet'
 
-import {AppState, TopicStore} from '../../store/store'
+import {TopicStore} from '../../store/store'
 import ListItemContainer from './list-item-container/index'
 import TopicTabs from './topic-tabs'
 import Loading from '../layout/Loading'
@@ -25,7 +25,6 @@ const style = theme => ({
 
 @withStyles(style)
 @inject(store => ({
-    appState: store.appState,
     topicStore: store.topicStore
   }
 ))
@@ -88,7 +87,6 @@ export default class TopicList extends Component {
 TopicList.wrappedComponent
   .propTypes = {
   classes: PropTypes.object.isRequired,  // eslint-disable-line
-  appState: PropTypes.instanceOf(AppState), // eslint-disable-line
   topicStore: PropTypes.instanceOf(TopicStore), // eslint-disable-line
   location: PropTypes.object.isRequired,  // eslint-disable-line
   match: PropTypes.object.isRequired,  // eslint-disable-line

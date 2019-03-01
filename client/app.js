@@ -9,7 +9,7 @@ import JssProvider from 'react-jss/lib/JssProvider';
 
 import App from './views/App'
 import theme from './views/MuiTheme'
-import {AppState, TopicStore} from './store/store'
+import {TopicStore} from './store/store'
 
 
 const root = document.getElementById('root')
@@ -24,7 +24,6 @@ const initialState = window.__INITIAL_STATE__ || {}
 delete window.__INITIAL_STATE__
 
 // create Initial State
-const appState = new AppState(initialState.appState)
 // const topicStore = new TopicStore(initialState.topicStore)
 const topicStore = new TopicStore({})
 
@@ -33,7 +32,6 @@ const render = (Component) => {
   ReactDOM.hydrate(
     <AppContainer>
       <Provider
-        appState={appState}
         topicStore={topicStore}
       >
         <BrowserRouter>
