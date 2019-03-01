@@ -5,13 +5,10 @@ const serveFavicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 
-const serverRender = require('../util/server-render')
-
 // load data from .env to process.env
 require('dotenv').config();
 
 // 初始化
-let isDev = process.env.NODE_ENV === "development"
 let app = express()
 let port = process.env.NODE_SERVER_PORT || 8888
 
@@ -37,27 +34,11 @@ app.use('/api', require('../util/proxy'))
 
 
 // 定义非开发环境下的代码逻辑
-if (!isDev) {
-  let serverEntry = require('../dist/server-entry')
 
-  // 引用 dist/index 文件作为模板 (由 webpack.config.client.js 生成).
-  let template = fs.readFileSync(path.join(__dirname, '../dist/server.ejs'), 'utf8')
-
-  // 定义对静态资源的响应,
-  app.use('/public', express.static(path.join(__dirname, '../dist')));
-
-  // 对首页/入口文件的响应
-  app.get("*", (req, res, next) => {
-    serverRender(serverEntry, template, req, res)
-  })
-}
+// 定义对静态资源的响应,
+app.use('/public', express.static(path.join(__dirname, '../dist')));
 
 
-// 定义开发环境下的逻辑
-else {
-  const devStatic = require('../util/dev-static')
-  devStatic(app)
-}
 
 app.use((error, req, res, next) => {
   console.log(error)
