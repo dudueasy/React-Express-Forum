@@ -23,7 +23,7 @@ let config = webpackMerge(baseConfig, {
       filename: 'server.ejs'
     }),
     new webpack.DefinePlugin({
-      'process.env.API_BASE': JSON.stringify(`http://127.0.0.1:${process.env.NODE_SERVER_PORT}`)
+      'process.env.API_BASE': JSON.stringify(`${process.env.HOST_NAME}${process.env.NODE_SERVER_PORT}`)
     }),
   ]
 })
