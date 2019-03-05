@@ -5,10 +5,9 @@ const baseUrl = process.env.API_BASE || ''
 
 
 const parseUrl = (url, paramsObj) => {
-  const queryString = `?${qs.stringify(paramsObj)}`
+  const queryString = `?${qs.stringify(paramsObj)}` 
+  const parsedUrl = new URL(`api${url}${queryString}`, baseUrl);
 
-
-  const parsedUrl = new URL(`api${url}${queryString}`, baseUrl)
   console.log('parsedUrl:', parsedUrl)
   return parsedUrl
 }
