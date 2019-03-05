@@ -30,8 +30,6 @@ export default class TopicList extends React.Component {
   }
 
   handleTabChange = (event, tabValue) => {
-    console.log('currentTabValue: ', tabValue)
-    console.log('this.props.history:', this.props)
     this.props.history.push({
       pathname: `/list/${tabValue}`
     })

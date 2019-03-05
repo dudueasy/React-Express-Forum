@@ -47,7 +47,6 @@ export default class Reply extends React.Component {
 
     const {classes, topicStore} = this.props
     const {topicReply} = topicStore
-    console.log(' topicReply: ', topicReply)
     const loginUser = true
 
     return (

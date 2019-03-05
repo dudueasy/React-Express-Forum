@@ -50,7 +50,6 @@ export default class Header extends React.Component {
     const {topicDetail} = topicStore
     const isCollected = true
     const replyNumber = topicDetail.replies.length
-    console.log('topicDetail: ', topicDetail)
 
     return (
       <div style={{position: "relative"}}>
