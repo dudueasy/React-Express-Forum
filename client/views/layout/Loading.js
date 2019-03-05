@@ -5,7 +5,7 @@ import {withStyles} from '@material-ui/core/styles'
 
 const styles = theme => ({
   root: {
-    position: 'absolute',
+    position: 'fixed',
     top: '48px',
     left: '0',
     right: '0',
