@@ -105,18 +105,14 @@ class TopicStore {
   @action
   onSyncing() {
     this.syncing = true;
-    scrollFreezer = (e) => {
-      e.stopImmediatePropagation();
-      window.scrollTo(0, 0);
-    };
-
-    window.addEventListener('scroll', scrollFreezer, true);
+    // scrollFreezer = (e) => { e.stopImmediatePropagation(); window.scrollTo(0, 0); }; 
+    // window.addEventListener('scroll', scrollFreezer, true);
   }
 
   @action
   offSyncing() {
     this.syncing = false;
-    window.removeEventListener('scroll', scrollFreezer, true);
+    // window.removeEventListener('scroll', scrollFreezer, true);
   }
 
   // get topicListData and update topicStoreList
