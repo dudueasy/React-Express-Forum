@@ -82,15 +82,12 @@ const styles = theme => ({
 @observer
 class TopBar extends Component {
   handleHomeClick = () => {
-    console.log('home icon is clicked')
   }
 
   handleNewTopicClick = () => {
-    console.log('new topic button is clicked')
   }
 
   handleLoginClick = () => {
-    console.log('login button is clicked')
   }
 
   render() {
@@ -101,7 +98,6 @@ class TopBar extends Component {
       theme
     } = this.props;
 
-    console.log('topicDetail :', topicDetail)
 
     return (
       <Grid container xs={12}>

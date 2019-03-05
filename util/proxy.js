@@ -28,7 +28,6 @@ module.exports = (req, res, next) => {
   })
 
 
-  console.log('query: ', query)
 
   // 向 Cnode 发起请求, 根据 浏览器请求中的数据来判断
   // method 根据客户端请求中的 method 来决定
@@ -36,8 +35,6 @@ module.exports = (req, res, next) => {
 
   let requestUrl = `${baseUrl}${req.path}`
 
-  console.log(`request path: ${req.path}`)
-  console.log('requestUrl:', requestUrl)
 
   axios(requestUrl, {
     method: req.method,
@@ -50,8 +47,6 @@ module.exports = (req, res, next) => {
     headers: {'content-type': 'application/x-www-form-urlencoded'},
   }).then(
     result => {
-      console.log('user data from cnode:', req.session.user)
-      console.log(`request ${requestUrl} successfully`)
 
       if (result.status === 200) {
         res.setHeader('Access-Control-Allow-Origin', '*')

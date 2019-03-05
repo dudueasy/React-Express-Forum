@@ -25,7 +25,6 @@ let config = webpackMerge(baseConfig, {
 });
 
 if (isDev) {
-  console.log('current env is development');
   config.devtool = "#cheap-module-eval-source-map";
   config.entry = {
     app: [

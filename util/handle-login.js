@@ -17,7 +17,6 @@ router.post('/login', (req, res)=>{
           avatarUrl: result.data.avatar_url
         }
 
-        console.log('user data from cnode:', req.session.user)
 
         res.json({
           success:true,

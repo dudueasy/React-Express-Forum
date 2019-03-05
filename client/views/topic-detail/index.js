@@ -109,7 +109,6 @@ export default class TopicDetail extends React.Component {
 
   render() {
     const topicId = this.getTopicId
-    console.log('topicId:', topicId)
 
 
     const {
@@ -118,7 +117,6 @@ export default class TopicDetail extends React.Component {
         syncing, topicDetail, topicDetail: {content}, topicReply
       }
     } = this.props
-    console.log('syncing:', syncing)
 
 
     return (

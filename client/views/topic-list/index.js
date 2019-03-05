@@ -32,15 +32,12 @@ const style = theme => ({
 export default class TopicList extends Component {
   constructor(props) {
     super(props)
-    console.log('this.getTab:', this.getTab)
     this.props.topicStore.updateTopicDetail('')
     this.props.topicStore.updateTopicTab(this.getTab)
   }
 
 
   componentDidMount() {
-    console.log('component Did Mount')
-    console.log(this.getTab)
   }
 
   get getTab() {
@@ -55,7 +52,6 @@ export default class TopicList extends Component {
   render() {
     const {topicStore, classes} = this.props
     const {topicStoreList} = topicStore
-    console.log('topicStoreList:', topicStoreList)
 
     return (
       <Fragment>

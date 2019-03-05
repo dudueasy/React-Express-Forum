@@ -15,7 +15,6 @@ export default class Content extends React.Component {
   render() {
     const {classes, topicStore} = this.props
     const {topicDetail} = topicStore
-    console.log('topicDetail: ', topicDetail)
 
     return (
       <React.Fragment>
